@@ -1,9 +1,7 @@
-//
-// Created by Rolo on 2. 6. 2020.
-//
-
 #ifndef BLXR__KEYHOOK_H_
 #define BLXR__KEYHOOK_H_
+
+#include <iostream>
 
 #include <Windows.h>
 

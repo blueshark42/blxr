@@ -2,6 +2,8 @@
 // Created by Rolo on 3. 6. 2020.
 //
 #include "keyconst.h"
+// TODO check for caps lock / shift
+// TODO Only log special keys on press and release, holding shift logs every HookCall
 
 std::map<int, KeyData> KeyList::key_list = {
 	{0xC1, {"[VK_ABNT_C1]", "[Abnt C1]"}},
