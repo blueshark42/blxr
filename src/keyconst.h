@@ -9,18 +9,16 @@
 #include <map>
 #include <Windows.h>
 
-
 class KeyData {
  public:
   KeyData(std::string key_code = "", std::string name = "") :
-  	vir_key(std::move(key_code)), name(std::move(name)){}
-  std::string vir_key;
+	  vir_key(std::move(key_code)), name(std::move(name)) {}
   std::string name;
+  std::string vir_key;
 };
 
 namespace key_const {
-  std::string AddKey(DWORD idx, bool caps, bool shift);
+std::string AddKey(DWORD idx, bool caps, bool shift);
 }
-
 
 #endif //BLXR__KEYCONST_H_
