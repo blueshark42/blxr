@@ -10,7 +10,9 @@
 #include <cstring>
 #include <ctime>
 
-namespace systime {
+#include <windows.h>
+
+namespace system_time {
 
 struct SystemTime {
   SystemTime() {
@@ -43,6 +45,12 @@ struct SystemTime {
 namespace convert {
 template<typename T>
 std::string ToString(T &t);
+std::string HwndToString(HWND hwnd);
+}
+
+namespace system_data {
+uint32_t GetProcessId();
+bool ProcessChanged(uint32_t &original, uint32_t current, bool update_process = false);
 }
 
 #endif //BLXR_SRC_HELPER_H_

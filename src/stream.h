@@ -10,7 +10,7 @@
 namespace stream {
 std::string GetPath(bool append = false);
 bool MakeDir(const std::string &path);
-bool WriteLog(const std::string &input);
+bool WriteLog(const std::string &input, uint32_t &active);
 
 class LogFile {
  public:
