@@ -4,6 +4,7 @@
 #define APPDATA "APPDATA"
 #define LOG_FILE_NAME "blxrlog.txt"
 
+// TODO Doesn't work when not initialized on declaration
 stream::LogFile* log_file = new stream::LogFile(stream::GetPath(true), LOG_FILE_NAME);
 
 std::string stream::GetPath(const bool append) {
@@ -24,15 +25,18 @@ std::string stream::GetPath(const bool append) {
 }
 
 bool stream::MakeDir(const std::string &path) {
-  return CreateDirectory(path.c_str(), nullptr) || GetLastError() == ERROR_ALREADY_EXISTS;
+  return CreateDirectory(path.c_str(), nullptr)
+  	|| GetLastError() == ERROR_ALREADY_EXISTS;
 }
 
 bool stream::WriteLog(const std::string& input) {
-  std::stringstream string_stream;
+  log_file->ofstream_.open(log_file->path_full_, std::fstream::app);
+  if(!log_file->ofstream_.is_open()) {
+    return false;
+  }
 
-  string_stream << input << std::endl;
-  //log_file << string_stream.str();
+  log_file->ofstream_ << input;
+  log_file->ofstream_.close();
 
   return true;
 }
-

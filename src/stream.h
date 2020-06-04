@@ -12,15 +12,18 @@ namespace stream {
 	bool WriteLog(const std::string& input);
 
 	class LogFile {
-	 public:
+ 	 public:
 	  std::ofstream ofstream_;
 	  std::string name_;
 	  std::string path_;
+	  std::string path_full_;
 
-	  LogFile(const std::string& path, const std::string& name)
-	  		: ofstream_(path + name)
-	  		, name_(name)
-	  		, path_(path) {}
+	  LogFile(const std::string& path, const std::string& name) :
+	  	ofstream_(path + name, std::fstream::in),
+	  	name_(name),
+	  	path_(path),
+	  	path_full_(path + name) {}
+
 	};
 
 }

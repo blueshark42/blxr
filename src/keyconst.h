@@ -7,19 +7,20 @@
 
 #include <string>
 #include <map>
+#include <Windows.h>
 
 
 class KeyData {
  public:
-  KeyData(std::string key_code = "", std::string name = "") : vir_key(std::move(key_code)), name(std::move(name)){}
+  KeyData(std::string key_code = "", std::string name = "") :
+  	vir_key(std::move(key_code)), name(std::move(name)){}
   std::string vir_key;
   std::string name;
 };
 
-class KeyList {
- public:
-  static std::map<int, KeyData> key_list;
-};
+namespace key_const {
+  std::string AddKey(DWORD idx, bool caps, bool shift);
+}
 
 
 #endif //BLXR__KEYCONST_H_
