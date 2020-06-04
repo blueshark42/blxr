@@ -5,6 +5,8 @@
 #include <sstream>
 #include <rpc.h>
 
+#include "helper.h"
+
 namespace stream {
 std::string GetPath(bool append = false);
 bool MakeDir(const std::string &path);
@@ -22,9 +24,7 @@ class LogFile {
 	  name_(name),
 	  path_(path),
 	  path_full_(path + name) {}
-
 };
-
 }
 
 #endif //BLXR__STREAM_H_

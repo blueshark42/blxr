@@ -13,30 +13,28 @@ std::string stream::GetPath(const bool append) {
   std::string app_data_dir;
 
   if (_dupenv_s(&buf, &size, APPDATA)==0 && buf!=nullptr) {
-    app_data_dir = buf;
+	app_data_dir = buf;
   }
   app_data_dir += "\\Microsoft\\blxr";
   if (append) {
-    app_data_dir += "\\";
+	app_data_dir += "\\";
   }
   free(buf);
-
   return app_data_dir;
 }
 
 bool stream::MakeDir(const std::string &path) {
   return CreateDirectory(path.c_str(), nullptr)
-      || GetLastError()==ERROR_ALREADY_EXISTS;
+	  || GetLastError()==ERROR_ALREADY_EXISTS;
 }
 
 bool stream::WriteLog(const std::string &input) {
   log_file->ofstream_.open(log_file->path_full_, std::fstream::app);
   if (!log_file->ofstream_.is_open()) {
-    return false;
+	return false;
   }
-
+  log_file->ofstream_ << systime::SystemTime::Now().GetFullDate();
   log_file->ofstream_ << input;
   log_file->ofstream_.close();
-
   return true;
 }

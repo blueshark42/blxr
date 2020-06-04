@@ -1,7 +1,3 @@
-//
-// Created by Rolo on 2. 6. 2020.
-//
-
 #ifndef BLXR__KEYCONST_H_
 #define BLXR__KEYCONST_H_
 
