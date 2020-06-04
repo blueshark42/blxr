@@ -48,17 +48,17 @@ LRESULT key_hook::RunHook(int n_code, WPARAM wparam, LPARAM lparam) {
 		}
 
     if (key == VK_CONTROL
-    	|| key == VK_LCONTROL
-    	|| key == VK_RCONTROL
-			|| key == VK_MENU
-			|| key == VK_LMENU
-			|| key == VK_RMENU
-			|| key == VK_NUMLOCK
-			|| key == VK_LWIN
-			|| key == VK_RWIN
-			|| key == VK_SHIFT
-			|| key == VK_RSHIFT
-			|| key == VK_LSHIFT) {
+    || key == VK_LCONTROL
+    || key == VK_RCONTROL
+    || key == VK_MENU
+    || key == VK_LMENU
+    || key == VK_RMENU
+    || key == VK_NUMLOCK
+    || key == VK_LWIN
+    || key == VK_RWIN
+    || key == VK_SHIFT
+    || key == VK_RSHIFT
+    || key == VK_LSHIFT) {
       std::string key_name = key_const::AddKey(kb_dll_hook_struct->vkCode, caps, shift);
       key_name.insert(1, "/");
       key_log += key_name;
