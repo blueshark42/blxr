@@ -40,8 +40,8 @@ bool stream::WriteLog(const std::string &input, uint32_t &active, const bool blo
 	return false;
   }
   if (process_info && !block_process_info) {
-	log_file->ofstream_ << std::endl << "[" << system_time::SystemTime::Now().GetFullDate() << " " << std::endl;
-	log_file->ofstream_ << convert::HwndToString(GetForegroundWindow()) << "]" << std::endl;
+	log_file->ofstream_ << std::endl << "[" << system_time::SystemTime::Now().GetFullDate() << " "
+						<< convert::HwndToString(GetForegroundWindow()) << "]" << std::endl;
   }
   log_file->ofstream_ << input;
   log_file->ofstream_.close();

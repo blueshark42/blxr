@@ -3,4 +3,4 @@ project(blxr)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(blxr src/main.cpp src/keyconst.h src/keyhook.cpp src/keyhook.h src/stream.h src/stream.cpp src/keyconst.cpp src/helper.cpp src/helper.h)
+add_executable(blxr src/main.cpp src/keyconst.h src/keyhook.cpp src/keyhook.h src/stream.h src/stream.cpp src/keyconst.cpp src/helper.cpp src/helper.h src/screen.cpp src/screen.h)

