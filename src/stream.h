@@ -8,7 +8,7 @@
 #include "helper.h"
 
 namespace stream {
-std::string GetPath(bool append = false);
+std::string GetPath(const std::string &dir = "", bool append = false);
 bool MakeDir(const std::string &path);
 bool WriteLog(const std::string &input, uint32_t &active, bool block_process_info = false);
 
