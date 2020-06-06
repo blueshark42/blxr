@@ -5,7 +5,7 @@ This project is still in active development. Under here you can see which items 
 ## Abilities
 ### Spying
 - [x] Keylogger
-- [ ] Screenscraper
+- [x] Screenscraper
 - [ ] Packet Sniffer
 
 ### Destructivity
@@ -13,6 +13,7 @@ This project is still in active development. Under here you can see which items 
 - [ ] Storage Eater
 - [ ] Hardware Tamper
 
-### Persistence
+### Persistence / Security
 - [ ] Anti-Malware Bypass
 - [ ] Startup Auto-Boot
+- [ ] Run as Windows Service
