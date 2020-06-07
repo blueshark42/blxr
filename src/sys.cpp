@@ -1,7 +1,6 @@
 #include "sys.h"
 #include "stream.h"
 
-// TODO testing
 int sys::AddToRegistry(const std::string &path, const std::string &name) {
   std::string win_path = stream::GetPath("\\Microsoft\\Windows", true);
   std::wstring w_win_path = std::wstring(win_path.begin(), win_path.end());
