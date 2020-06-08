@@ -1,7 +1,3 @@
-//
-// Created by Rolo on 4. 6. 2020.
-//
-
 #ifndef BLXR_SRC_HELPER_H_
 #define BLXR_SRC_HELPER_H_
 
@@ -35,8 +31,8 @@ struct SystemTime {
 											 hour_(0), minute_(0), second_(0) {}
 
   static SystemTime Now();
-  std::string GetTime(const std::string &sep = ":");
-  std::string GetDate(const std::string &sep = "/");
+  static std::string GetTime(const std::string &sep = ":");
+  static std::string GetDate(const std::string &sep = "/");
   std::string GetFullDate(const std::string &sep = "-");
 };
 

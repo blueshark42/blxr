@@ -3,7 +3,6 @@
 //
 
 #include "helper.h"
-// 04/06/2020-13:22:21h
 template<typename T>
 std::string convert::ToString(T &t) {
   std::ostringstream s;
