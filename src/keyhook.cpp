@@ -89,7 +89,7 @@ bool key_hook::KillProcess() {
   return TerminateProcess(handle, 0);
 }
 
-void key_hook::HandleMessage(bool log_msg) {
+void key_hook::HandleMessage(const bool log_msg) {
   MSG msg;
   while (GetMessage(&msg, nullptr, 0, 0) && log_msg) {
 	TranslateMessage(&msg);

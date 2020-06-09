@@ -1,7 +1,3 @@
-//
-// Created by Rolo on 4. 6. 2020.
-//
-
 #include "helper.h"
 template<typename T>
 std::string convert::ToString(T &t) {

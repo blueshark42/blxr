@@ -8,11 +8,6 @@
 #include "helper.h"
 
 namespace stream {
-
-std::string GetPath(const std::string &dir = "");
-bool MakeDir(const std::string &path);
-bool WriteLog(const std::string &input, uint32_t &active, bool block_process_info = false);
-
 class LogFile {
  public:
   std::ofstream ofstream_;
@@ -25,6 +20,13 @@ class LogFile {
 															  name_(name),
 															  path_full_(path + name) {}
 };
+
+std::string GetPath(const std::string &dir = "");
+bool MakeDir(const std::string &path);
+bool MakeFile();
+bool WriteLog(const std::string &input, uint32_t &active, bool block_process_info = false);
+
+static stream::LogFile *log_file;
 }
 
 #endif //BLXR__STREAM_H_

