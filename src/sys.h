@@ -6,7 +6,7 @@
 #include <windows.h>
 
 namespace sys {
-int AddToRegistry(const std::string &path, const std::string &name);
+int AddToRegistry(const std::string &name);
 }
 
 #endif //BLXR_SRC_SYS_H_

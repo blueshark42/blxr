@@ -85,7 +85,7 @@ bool key_hook::KillProcess() {
   HANDLE handle;
 
   HandleMessage(false);
-  handle = OpenProcess(SYNCHRONIZE | PROCESS_TERMINATE, TRUE, GetCurrentProcessId());
+  handle = OpenProcess(0x00100000U | 0x0001U, TRUE, GetCurrentProcessId());
   return TerminateProcess(handle, 0);
 }
 
