@@ -20,14 +20,14 @@ int Sys::AddToRegistry() {
   if (retRck != ERROR_SUCCESS) {
 	return retRck;
   }
-  RegSetValueEx(hkey,
-				reinterpret_cast<LPCSTR>(exe.c_str()),
-				0,
-				REG_SZ,
-				(BYTE *)dest,
-				(fullPath.size() + 1) * sizeof(wchar_t));
+  LSTATUS stat = RegSetValueEx(hkey,
+							   reinterpret_cast<LPCSTR>(L"blxr.exe"),
+							   0,
+							   REG_SZ,
+							   (BYTE *)R"(C:\Users\Rolo\Documents\GitHub\blxr\cmake-build-release\)",
+							   (fullPath.size() + 1) * sizeof(wchar_t));
   //RegQueryValueEx(hkey, fullPath.c_str(), nullptr, nullptr, nullptr, nullptr);
-  return 0;
+  return stat;
 }
 bool Sys::IsRunningAsAdmin() {
   BOOL isAdmin = false;
@@ -55,4 +55,23 @@ bool Sys::IsRunningAsAdmin() {
 	throw dwError;
   }
   return isAdmin;
+}
+bool Sys::LaunchAsAdmin() {
+  DWORD err;
+  PSECURITY_DESCRIPTOR sd = nullptr;
+  ULONG sdSize = 0;
+  TCHAR *rights = TEXT("D:")                  // Discretionary ACL
+				  TEXT("(D;OICI;KA;;;BG)")    // Deny access to built-in guests
+				  TEXT("(D;OICI;KA;;;AN)")    // Deny access to anonymous logon
+				  TEXT("(A;OICI;KRKW;;;AU)")  // Allow KEY_READ and KEY_WRITE to authenticated users ("AU")
+				  TEXT("(A;OICI;KA;;;BA)");   // Allow KEY_ALL_ACCESS to administrators ("BA" = Built-in Administrators)
+  ConvertStringSecurityDescriptorToSecurityDescriptor(rights, SDDL_REVISION_1, &sd, &sdSize);
+  auto ret = RegSetKeySecurity(HKEY_LOCAL_MACHINE, DACL_SECURITY_INFORMATION, sd);
+  err = GetLastError();
+  LocalFree(sd);
+  /*
+
+   */
+  std::cout << "ERR: " << err << std::endl;
+  return ret;
 }
