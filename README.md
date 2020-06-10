@@ -8,12 +8,11 @@ This project is still in active development. Under here you can see which items 
 ### Spying
 - [x] Keylogger
 - [x] Screenscraper
-- [ ] Packet Sniffer
 
 ### Persistence
 - [x] Startup Auto-Boot
 
 ### Defense Evasion
-- [ ] Anti-Malware Bypass
+- [x] Anti-Malware Bypass
 - [ ] Run as Windows Service
 - [ ] Encryption
