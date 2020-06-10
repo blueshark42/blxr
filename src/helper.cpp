@@ -11,34 +11,34 @@ std::string convert::HwndToString(HWND hwnd) {
   return buf;
 }
 
-system_time::SystemTime system_time::SystemTime::Now() {
+SysTime::SystemTime SysTime::SystemTime::Now() {
   return {};
 }
 
-std::string system_time::SystemTime::GetTime(const std::string &sep) {
+std::string SysTime::SystemTime::GetTime(const std::string &sep) {
   SystemTime sys = SystemTime().Now();
-  return std::string(sys.hour_ < 10 ? "0" : "") + convert::ToString(sys.hour_) + sep +
-	  std::string(sys.minute_ < 10 ? "0" : "") + convert::ToString(sys.minute_) + sep +
-	  std::string(sys.second_ < 10 ? "0" : "") + convert::ToString(sys.second_);
+  return std::string(sys.Hour < 10 ? "0" : "") + convert::ToString(sys.Hour) + sep +
+	  std::string(sys.Minute < 10 ? "0" : "") + convert::ToString(sys.Minute) + sep +
+	  std::string(sys.Second < 10 ? "0" : "") + convert::ToString(sys.Second);
 }
 
-std::string system_time::SystemTime::GetDate(const std::string &sep) {
+std::string SysTime::SystemTime::GetDate(const std::string &sep) {
   SystemTime sys = SystemTime().Now();
-  return std::string(sys.day_ < 10 ? "0" : "") + convert::ToString(sys.day_) + sep +
-	  std::string(sys.month_ < 10 ? "0" : "") + convert::ToString(sys.month_) + sep +
-	  convert::ToString(sys.year_);
+  return std::string(sys.Day < 10 ? "0" : "") + convert::ToString(sys.Day) + sep +
+	  std::string(sys.Month < 10 ? "0" : "") + convert::ToString(sys.Month) + sep +
+	  convert::ToString(sys.Year);
 }
 
-std::string system_time::SystemTime::GetFullDate(const std::string &sep) {
-  return system_time::SystemTime::GetDate() + sep + system_time::SystemTime::GetTime();
+std::string SysTime::SystemTime::GetFullDate(const std::string &sep) {
+  return SysTime::SystemTime::GetDate() + sep + SysTime::SystemTime::GetTime();
 }
 
 uint32_t system_data::GetProcessId() {
   return (uint32_t)GetForegroundWindow();
 }
-bool system_data::ProcessChanged(uint32_t &original, uint32_t current, const bool update_process) {
-  if (original!=current) {
-	if (update_process) {
+bool system_data::ProcessChanged(uint32_t &original, uint32_t current, const bool updateProcess) {
+  if (original != current) {
+	if (updateProcess) {
 	  original = current;
 	}
 	return true;

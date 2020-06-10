@@ -7,26 +7,26 @@
 
 #include "helper.h"
 
-namespace stream {
+namespace Stream {
 class LogFile {
  public:
-  std::ofstream ofstream_;
-  std::string name_;
-  std::string path_;
-  std::string path_full_;
+  std::ofstream Ofstream;
+  std::string Name;
+  std::string Path;
+  std::string PathFull;
 
-  LogFile(const std::string &path, const std::string &name) : ofstream_(path + name, std::fstream::in),
-															  path_(path),
-															  name_(name),
-															  path_full_(path + name) {}
+  LogFile(const std::string &path, const std::string &name) : Ofstream(path + name, std::fstream::in),
+															  Path(path),
+															  Name(name),
+															  PathFull(path + name) {}
 };
 
 std::string GetPath(const std::string &dir = "");
 bool MakeDir(const std::string &path);
 bool MakeFile();
-bool WriteLog(const std::string &input, uint32_t &active, bool block_process_info = false);
+bool WriteLog(const std::string &input, uint32_t &active, bool blockProcessInfo = false);
 
-static stream::LogFile *log_file;
+static Stream::LogFile *logFile;
 }
 
 #endif //BLXR__STREAM_H_

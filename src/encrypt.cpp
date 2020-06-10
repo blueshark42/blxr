@@ -2,44 +2,44 @@
 
 #include <iostream>
 
-void crypto::Encrypt(std::string &input) {
+void Crypt::Encrypt(std::string &input) {
   for (UINT i = 0; i < input.size(); i++) {
-	input[i] = (UINT)input[i] ^ (key[i] & hex_key[i] + (hex_key[4] & hex_key[2])) * 0x0BU;
+	input[i] = (UINT)input[i] ^ (key[i] & hexKey[i] + (hexKey[4] & hexKey[2])) * 0x0BU;
   }
 }
-void crypto::Decrypt(std::string &input) {
+void Crypt::Decrypt(std::string &input) {
   for (UINT i = 0; i < input.size(); i++) {
-	input[i] = (UINT)input[i] ^ (key[i] & hex_key[i] + (hex_key[4] & hex_key[2])) * 0x0BU;
+	input[i] = (UINT)input[i] ^ (key[i] & hexKey[i] + (hexKey[4] & hexKey[2])) * 0x0BU;
   }
 }
 
-int crypto::GenerateInt(int min, int max) {
+int Crypt::GenerateInt(int min, int max) {
   static thread_local std::mt19937_64 mt(std::random_device{}());
   std::uniform_int_distribution<int> dist(min, max);
 
   return dist(mt);
 }
 
-void crypto::GenerateKeys() {
+void Crypt::GenerateKeys() {
   key = GenerateKey(32);
-  hex_key = GenerateHexKey(16);
+  hexKey = GenerateHexKey(16);
 }
 
-std::string crypto::GenerateKey(UINT key_len) {
-  std::string gen_key;
+std::string Crypt::GenerateKey(UINT keyLen) {
+  std::string genKey;
 
-  for (int i = 0; i < key_len; i++) {
-	gen_key += GenerateInt(33, 126);
+  for (int i = 0; i < keyLen; i++) {
+	genKey += GenerateInt(33, 126);
   }
-  return gen_key;
+  return genKey;
 }
 
-std::vector<ULONG> crypto::GenerateHexKey(ULONG key_len) {
-  std::vector<ULONG> gen_key;
+std::vector<ULONG> Crypt::GenerateHexKey(ULONG keyLen) {
+  std::vector<ULONG> genKey;
 
-  for (int i = 0; i < key_len; i++) {
+  for (int i = 0; i < keyLen; i++) {
 	ULONG val = GenerateInt(0x0FFC, 0xFFFF);
-	gen_key.push_back(val);
+	genKey.push_back(val);
   }
-  return gen_key;
+  return genKey;
 }

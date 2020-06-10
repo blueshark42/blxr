@@ -7,13 +7,13 @@
 
 class KeyData {
  public:
-  KeyData(std::string key_code = "", std::string name = "") :
-	  vir_key(std::move(key_code)), name(std::move(name)) {}
-  std::string name;
-  std::string vir_key;
+  KeyData(std::string keyCode = "", std::string name = "") :
+	  VirKey(std::move(keyCode)), Name(std::move(name)) {}
+  std::string Name;
+  std::string VirKey;
 };
 
-namespace key_const {
+namespace KeyConst {
 std::string AddKey(DWORD idx, bool caps, bool shift);
 }
 

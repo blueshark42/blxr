@@ -8,8 +8,8 @@
 
 #pragma comment(lib, "gdiplus.lib")
 
-namespace screen {
-int GetEncoderClsId(const WCHAR *format, CLSID *cls_id);
+namespace Screen {
+int GetEncoderClsId(const WCHAR *format, CLSID *clsId);
 void CaptureScreen(const std::string &path, const std::string &name);
 }
 

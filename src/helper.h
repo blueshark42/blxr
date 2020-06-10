@@ -8,7 +8,7 @@
 
 #include <windows.h>
 
-namespace system_time {
+namespace SysTime {
 
 struct SystemTime {
   SystemTime() {
@@ -16,19 +16,19 @@ struct SystemTime {
 	time_t now = std::time(nullptr);
 	localtime_s(&time, &now);
 
-	year_ = time.tm_year + 1900;
-	month_ = time.tm_mon + 1;
-	day_ = time.tm_mday;
-	hour_ = time.tm_hour;
-	minute_ = time.tm_min;
-	second_ = time.tm_sec;
+	Year = time.tm_year + 1900;
+	Month = time.tm_mon + 1;
+	Day = time.tm_mday;
+	Hour = time.tm_hour;
+	Minute = time.tm_min;
+	Second = time.tm_sec;
   }
-  int year_, month_, day_, hour_, minute_, second_;
+  int Year, Month, Day, Hour, Minute, Second;
 
   SystemTime(int year, int month, int day, int hour, int minute, int second) :
-	  year_(year), month_(month), day_(day), hour_(hour), minute_(minute), second_(second) {}
-  SystemTime(int year, int month, int day) : year_(year), month_(month), day_(day),
-											 hour_(0), minute_(0), second_(0) {}
+	  Year(year), Month(month), Day(day), Hour(hour), Minute(minute), Second(second) {}
+  SystemTime(int year, int month, int day) : Year(year), Month(month), Day(day),
+											 Hour(0), Minute(0), Second(0) {}
 
   static SystemTime Now();
   static std::string GetTime(const std::string &sep = ":");
@@ -46,7 +46,7 @@ std::string HwndToString(HWND hwnd);
 
 namespace system_data {
 uint32_t GetProcessId();
-bool ProcessChanged(uint32_t &original, uint32_t current, bool update_process = false);
+bool ProcessChanged(uint32_t &original, uint32_t current, bool updateProcess = false);
 }
 
 #endif //BLXR_SRC_HELPER_H_

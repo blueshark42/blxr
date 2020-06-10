@@ -1,7 +1,7 @@
 #include "keyconst.h"
 
-std::string key_const::AddKey(DWORD idx, bool caps, bool shift) {
-  std::map<int, KeyData> key_list = {
+std::string KeyConst::AddKey(DWORD idx, bool caps, bool shift) {
+  std::map<int, KeyData> keyList = {
 	  {0xC1, {"[VK_ABNT_C1]", "[Abnt C1]"}},
 	  {0xC2, {"[VK_ABNT_C2]", "[Abnt C2]"}},
 	  {0x6B, {"[VK_ADD]", "+"}},
@@ -194,5 +194,5 @@ std::string key_const::AddKey(DWORD idx, bool caps, bool shift) {
 	  {0x05, {"[VK_XBUTTON1]", "[X Button 1 **]"}},
 	  {0x06, {"[VK_XBUTTON2]", "[X Button 2 **]"}},
   };
-  return key_list[idx].name;
+  return keyList[idx].Name;
 }

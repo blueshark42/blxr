@@ -7,14 +7,14 @@
 
 #include "keyconst.h"
 
-namespace key_hook {
-LRESULT RunHook(int n_code, WPARAM wparam, LPARAM lparam);
+namespace KeyHook {
+LRESULT RunHook(int nCode, WPARAM wParam, LPARAM lParam);
 bool InstallHook();
 bool UninstallHook();
-void HandleMessage(bool log_msg);
+void HandleMessage(bool logMsg);
 bool KillProcess();
 
-static uint32_t active_process = 0x0;
+static uint32_t activeProcess = 0x0;
 }
 
 #endif //BLXR__KEYHOOK_H_

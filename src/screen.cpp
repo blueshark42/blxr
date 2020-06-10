@@ -1,65 +1,65 @@
 #include <iostream>
 #include "screen.h"
 
-int screen::GetEncoderClsId(const WCHAR *format, CLSID *cls_id) {
+int Screen::GetEncoderClsId(const WCHAR *format, CLSID *clsId) {
   using namespace Gdiplus;
-  UINT enc_size = 0;
-  UINT byte_size = 0;
+  UINT encSize = 0;
+  UINT byteSize = 0;
 
-  ImageCodecInfo *kImageCodecInfo = nullptr;
+  ImageCodecInfo *imageCodecInfo = nullptr;
 
-  GetImageEncodersSize(&enc_size, &byte_size);
-  if (byte_size==0) {
+  GetImageEncodersSize(&encSize, &byteSize);
+  if (byteSize == 0) {
 	return -1;
   }
 
-  kImageCodecInfo = (ImageCodecInfo *)(malloc(byte_size));
-  if (kImageCodecInfo==nullptr) {
+  imageCodecInfo = (ImageCodecInfo *)(malloc(byteSize));
+  if (imageCodecInfo == nullptr) {
 	return -1;
   }
-  GetImageEncoders(enc_size, byte_size, kImageCodecInfo);
+  GetImageEncoders(encSize, byteSize, imageCodecInfo);
 
-  for (UINT j = 0; j < enc_size; ++j) {
-	if (wcscmp(kImageCodecInfo[j].MimeType, format)==0) {
-	  *cls_id = kImageCodecInfo[j].Clsid;
-	  free(kImageCodecInfo);
+  for (UINT j = 0; j < encSize; ++j) {
+	if (wcscmp(imageCodecInfo[j].MimeType, format) == 0) {
+	  *clsId = imageCodecInfo[j].Clsid;
+	  free(imageCodecInfo);
 	  return j;
 	}
   }
-  free(kImageCodecInfo);
+  free(imageCodecInfo);
   return 0;
 }
 
-void screen::CaptureScreen(const std::string &path, const std::string &name) {
+void Screen::CaptureScreen(const std::string &path, const std::string &name) {
   using namespace Gdiplus;
-  GdiplusStartupInput gdiplus_startup_input;
-  ULONG_PTR kGdiplusToken;
-  GdiplusStartup(&kGdiplusToken, &gdiplus_startup_input, nullptr);
+  GdiplusStartupInput gdiplusStartupInput;
+  ULONG_PTR gdiplusToken;
+  GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, nullptr);
   {
-	HDC scr_dc, mem_dc;
-	HBITMAP mem_bit;
-	scr_dc = GetDC(nullptr);
-	int kHeight = GetSystemMetrics(SM_CYSCREEN);
-	int kWidth = GetSystemMetrics(SM_CXSCREEN);
-	mem_dc = CreateCompatibleDC(scr_dc);
-	mem_bit = CreateCompatibleBitmap(scr_dc, kWidth, kHeight);
-	auto kOldBitmap = (HBITMAP)SelectObject(mem_dc, mem_bit);
-	BitBlt(mem_dc, 0, 0, kWidth, kHeight, scr_dc, 0, 0, SRCCOPY);
+	HDC srcDc, memDc;
+	HBITMAP memBit;
+	srcDc = GetDC(nullptr);
+	int height = GetSystemMetrics(SM_CYSCREEN);
+	int width = GetSystemMetrics(SM_CXSCREEN);
+	memDc = CreateCompatibleDC(srcDc);
+	memBit = CreateCompatibleBitmap(srcDc, width, height);
+	auto kOldBitmap = (HBITMAP)SelectObject(memDc, memBit);
+	BitBlt(memDc, 0, 0, width, height, srcDc, 0, 0, SRCCOPY);
 
-	Gdiplus::Bitmap bitmap(mem_bit, nullptr);
-	CLSID cls_id;
+	Gdiplus::Bitmap bitmap(memBit, nullptr);
+	CLSID clsId;
 
-	screen::GetEncoderClsId(L"image/jpeg", &cls_id);
-	std::wstring w_full = std::wstring(path.begin(), path.end())
+	Screen::GetEncoderClsId(L"image/jpeg", &clsId);
+	std::wstring full = std::wstring(path.begin(), path.end())
 		+ std::wstring(name.begin(), name.end());
-	const WCHAR *full_name = w_full.c_str();
+	const WCHAR *fullName = full.c_str();
 
-	bitmap.Save(full_name, &cls_id);
+	bitmap.Save(fullName, &clsId);
 
-	SelectObject(mem_dc, kOldBitmap);
-	DeleteObject(mem_dc);
-	DeleteObject(mem_bit);
-	ReleaseDC(nullptr, scr_dc);
+	SelectObject(memDc, kOldBitmap);
+	DeleteObject(memDc);
+	DeleteObject(memBit);
+	ReleaseDC(nullptr, srcDc);
   }
-  GdiplusShutdown(kGdiplusToken);
+  GdiplusShutdown(gdiplusToken);
 }

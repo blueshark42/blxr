@@ -5,8 +5,9 @@
 
 #include <windows.h>
 
-namespace sys {
-int AddToRegistry(const std::string &name);
+namespace Sys {
+int AddToRegistry();
+bool IsRunningAsAdmin();
 }
 
 #endif //BLXR_SRC_SYS_H_
