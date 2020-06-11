@@ -64,14 +64,11 @@ bool Sys::LaunchAsAdmin() {
 				  TEXT("(D;OICI;KA;;;BG)")    // Deny access to built-in guests
 				  TEXT("(D;OICI;KA;;;AN)")    // Deny access to anonymous logon
 				  TEXT("(A;OICI;KRKW;;;AU)")  // Allow KEY_READ and KEY_WRITE to authenticated users ("AU")
-				  TEXT("(A;OICI;KA;;;BA)");   // Allow KEY_ALL_ACCESS to administrators ("BA" = Built-in Administrators)
-  ConvertStringSecurityDescriptorToSecurityDescriptor(rights, SDDL_REVISION_1, &sd, &sdSize);
-  auto ret = RegSetKeySecurity(HKEY_LOCAL_MACHINE, DACL_SECURITY_INFORMATION, sd);
+				  TEXT("(A;OICI;KA;;;BA)");
+  ConvertStringSecurityDescriptorToSecurityDescriptor((LPCTSTR)rights, SDDL_REVISION_1, &sd, &sdSize);
+  auto ret = RegSetKeySecurity(HKEY_CURRENT_USER, DACL_SECURITY_INFORMATION, sd);
   err = GetLastError();
   LocalFree(sd);
-  /*
-
-   */
   std::cout << "ERR: " << err << std::endl;
   return ret;
 }
