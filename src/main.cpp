@@ -8,7 +8,7 @@
 
 int main() {
 #ifdef DEBUG
-  std::cout << "launchadmin: " << Sys::LaunchAsAdmin() << "\n";
+  std::cout << "launchadmin: " << Sys::LaunchAsAdmin() << "\n";     //TODO retval 1
   std::cout << "addreg: " << Sys::AddToRegistry() << "\n";
 #endif
 

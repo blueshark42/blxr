@@ -52,7 +52,7 @@ bool Sys::IsRunningAsAdmin() {
 	pAdministratorsGroup = nullptr;
   }
   if (ERROR_SUCCESS != dwError) {
-	throw dwError;
+	//throw dwError;
   }
   return isAdmin;
 }
