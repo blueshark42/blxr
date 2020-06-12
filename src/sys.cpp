@@ -24,9 +24,7 @@ int Sys::AddToRegistry() {
 							   reinterpret_cast<LPCSTR>(L"blxr"),
 							   0,
 							   REG_SZ,
-							   (LPBYTE)R"(C:\Users\Rolo\Documents\GitHub\blxr\cmake-build-release\)",
+							   (LPBYTE)dest,
 							   (fullPath.size() + 1) * sizeof(wchar_t));
-  std::cout << "regCreate = " << retRck << "\n";
-  std::cout << "regSet = " << stat << "\n";
   return stat;
 }

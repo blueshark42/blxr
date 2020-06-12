@@ -6,6 +6,7 @@
 #include <rpc.h>
 
 #include "helper.h"
+#include "encrypt.h"
 
 namespace Stream {
 class LogFile {

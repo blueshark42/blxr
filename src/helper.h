@@ -38,13 +38,13 @@ struct SystemTime {
 
 };
 
-namespace convert {
+namespace Convert {
 template<typename T>
 std::string ToString(T &t);
 std::string HwndToString(HWND hwnd);
 }
 
-namespace system_data {
+namespace SystemData {
 uint32_t GetProcessId();
 bool ProcessChanged(uint32_t &original, uint32_t current, bool updateProcess = false);
 }

