@@ -8,8 +8,6 @@
 
 namespace Sys {
 int AddToRegistry();
-bool IsRunningAsAdmin();
-bool LaunchAsAdmin();
 }
 
 #endif //BLXR_SRC_SYS_H_
