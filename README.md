@@ -16,6 +16,7 @@ This project is still in active development. Under here you can see which items 
 - [x] Anti-Malware Bypass
 - [ ] Run as Windows Service
 - [x] Encryption
+- [ ] Spoof extension
 - [ ] Kill switch & Data Wipe
 
 ## What happens when I run the process?
