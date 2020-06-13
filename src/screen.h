@@ -9,6 +9,7 @@
 #pragma comment(lib, "gdiplus.lib")
 
 namespace Screen {
+static int picId = 0;
 int GetEncoderClsId(const WCHAR *format, CLSID *clsId);
 void CaptureScreen(const std::string &path, const std::string &name);
 }

