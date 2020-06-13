@@ -15,4 +15,13 @@ This project is still in active development. Under here you can see which items 
 ### Defense Evasion
 - [x] Anti-Malware Bypass
 - [ ] Run as Windows Service
-- [ ] Encryption
+- [x] Encryption
+- [ ] Spoof extension
+- [ ] Kill switch & Data Wipe
+
+## What happens when I run the process?
+- Creates and drops hidden folders and files such as (*SystemService, winpst.jpeg, wnxshl2.log*)
+- Hooks itself to intercept low-level keyboard events
+- Creates an encryption key, encrypts the logs file with the key
+- In certain intevals / commands the process sends over the data to the attacker
+- Logs and spies on the user until terminated by a kill switch
