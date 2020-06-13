@@ -33,7 +33,7 @@ struct SystemTime {
   static SystemTime Now();
   static std::string GetTime(const std::string &sep = ":");
   static std::string GetDate(const std::string &sep = "/");
-  std::string GetFullDate(const std::string &sep = "-");
+  static std::string GetFullDate(const std::string &sep = "-");
 };
 
 };

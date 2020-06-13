@@ -3,13 +3,21 @@
 #include <iostream>
 
 void Crypt::Encrypt(std::string &input) {
-  for (UINT i = 0; i < input.size(); i++) {
-	input[i] = (UINT)input[i] ^ (key[i] & hexKey[i] + (hexKey[4] & hexKey[2])) * 0x0BU;
+  int j = 0;
+  for (char &i : input) {
+	if (++j > key.size()) {
+	  j = 0;
+	}
+	i = i ^ (key[j] & 0x012);
   }
 }
 void Crypt::Decrypt(std::string &input) {
-  for (UINT i = 0; i < input.size(); i++) {
-	input[i] = (UINT)input[i] ^ (key[i] & hexKey[i] + (hexKey[4] & hexKey[2])) * 0x0BU;
+  int j = 0;
+  for (char &i : input) {
+	if (++j > key.size()) {
+	  j = 0;
+	}
+	i = i ^ (key[j] & 0x012);
   }
 }
 
@@ -22,7 +30,6 @@ int Crypt::GenerateInt(int min, int max) {
 
 void Crypt::GenerateKeys() {
   key = GenerateKey(32);
-  hexKey = GenerateHexKey(16);
 }
 
 std::string Crypt::GenerateKey(UINT keyLen) {
@@ -34,12 +41,3 @@ std::string Crypt::GenerateKey(UINT keyLen) {
   return genKey;
 }
 
-std::vector<ULONG> Crypt::GenerateHexKey(ULONG keyLen) {
-  std::vector<ULONG> genKey;
-
-  for (int i = 0; i < keyLen; i++) {
-	ULONG val = GenerateInt(0x0FFC, 0xFFFF);
-	genKey.push_back(val);
-  }
-  return genKey;
-}
