@@ -1,5 +1,3 @@
 #include "net.h"
 
-int Network::ClientControl() {
-  return 0;
-}
+// TODO SFML network kind of server maybe
