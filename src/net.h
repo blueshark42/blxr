@@ -10,14 +10,8 @@
 #define PORT "3507"
 #define BUFFER 4096
 
-struct Client {
-  SOCKET socket;
-  int id;
-  char recvMsg[BUFFER];
-};
 
 namespace Network {
-int ProcessClient(Client &client);
 int ClientControl();
 }
 

