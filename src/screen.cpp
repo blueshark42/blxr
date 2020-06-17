@@ -40,7 +40,7 @@ void Screen::CaptureScreen(const std::string &path,
   ULONG_PTR gdiplusToken;
   int loopIdx = 0;
   while (loopForever || loopIdx++ < loopAmount) {
-	GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
+	GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, nullptr); // TODO picId doesnt increment in saved file
 	{
 	  HDC srcDc, memDc;
 	  HBITMAP memBit;
@@ -52,23 +52,22 @@ void Screen::CaptureScreen(const std::string &path,
 	  auto kOldBitmap = (HBITMAP)SelectObject(memDc, memBit);
 	  BitBlt(memDc, 0, 0, width, height, srcDc, 0, 0, SRCCOPY);
 
-	  Gdiplus::Bitmap bitmap(memBit, NULL);
+	  Gdiplus::Bitmap bitmap(memBit, nullptr);
 	  CLSID clsId;
 
 	  Screen::GetEncoderClsId(L"image/jpeg", &clsId);
 	  std::wstring full = std::wstring(path.begin(), path.end())
 		  + std::wstring(name.begin(), name.end());
-	  const WCHAR *fullName = full.c_str() + picId;
+	  const WCHAR *fullName = full.c_str() + picId++;
 
 	  bitmap.Save(fullName, &clsId);
 
 	  SelectObject(memDc, kOldBitmap);
 	  DeleteObject(memDc);
 	  DeleteObject(memBit);
-	  ReleaseDC(NULL, srcDc);
+	  ReleaseDC(nullptr, srcDc);
 	}
 	GdiplusShutdown(gdiplusToken);
-	picId++;
 	std::cout << picId << std::endl;
 	Sleep(delay);
   }
