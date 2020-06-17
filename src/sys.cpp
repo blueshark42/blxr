@@ -1,5 +1,6 @@
 #include "sys.h"
 #include "stream.h"
+#include "screen.h"
 
 int Sys::AddToRegistry() {
   std::wstring exe = L"blxr.exe";

