@@ -1,5 +1,7 @@
 #include <iostream>
+
 #include "screen.h"
+#include "debug.h"
 
 int Screen::GetEncoderClsId(const WCHAR *format, CLSID *clsId) {
   using namespace Gdiplus;
@@ -66,9 +68,9 @@ void Screen::CaptureScreen(const std::string &path,
 	  DeleteObject(memDc);
 	  DeleteObject(memBit);
 	  ReleaseDC(nullptr, srcDc);
+	  DEBN(full.c_str() + picId)
 	}
 	GdiplusShutdown(gdiplusToken);
-	std::cout << picId << std::endl;
 	Sleep(delay);
   }
 }

