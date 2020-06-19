@@ -17,11 +17,14 @@ This project is still in active development. Under here you can see which items 
 - [ ] Run as Windows Service
 - [x] Encryption
 - [x] Spoof extension
+- [x] Check for Virtual Machine Environment
 - [ ] Kill switch & Data Wipe
 
 ## What happens when I run the process?
+- Checks if the client is running on a VM
 - Creates and drops hidden folders and files such as (*SystemService, winpst.jpeg, wnxshl2.log*)
 - Hooks itself to intercept low-level keyboard events
 - Creates an encryption key, encrypts the logs file with the key
-- In certain intevals / commands the process sends over the data to the attacker
-- Logs and spies on the user until terminated by a kill switch
+- Creates registry keys, sets registry values to start on boot
+- In certain intevals / commands the process sends over the data to the attacker (WIP)
+- Logs and spies on the user until terminated by a kill switch (WIP)
