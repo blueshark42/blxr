@@ -5,10 +5,12 @@
 #include <cstring>
 
 #include <Windows.h>
+#include <WinInet.h>
+
+#pragma comment(lib, "Wininet")
 
 namespace Network {
-void Login(const std::string &name, const std::string &pass);
-//void Connect(const std::string& server, unsigned short port);
+bool UploadFileFtp(const std::string &path, const std::string &name = "");    // empty name = all files
 }
 
 #endif //BLXR_SRC_NET_H_

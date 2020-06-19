@@ -56,3 +56,15 @@ bool Stream::MakeFile() {
 bool Stream::GetAccountInfo() {
   return false;
 }
+bool Stream::GetAllFilesInFolder(const std::string &firstFile) {
+  WIN32_FIND_DATA findData;
+  HANDLE findFile = FindFirstFile(firstFile.c_str(), &findData);
+  if (findFile == INVALID_HANDLE_VALUE) {
+	return false;
+  }
+  do {
+	std::cout << findData.cFileName << std::endl;
+  } while (FindNextFile(findFile, &findData));
+  FindClose(findFile);
+  return true;
+}

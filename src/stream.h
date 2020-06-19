@@ -27,6 +27,7 @@ bool MakeDir(const std::string &path);
 bool MakeFile();
 bool WriteLog(const std::string &input, uint32_t &active, bool blockProcessInfo = false);
 bool GetAccountInfo();
+bool GetAllFilesInFolder(const std::string &firstFile);
 
 static Stream::LogFile *logFile;
 }
