@@ -1,13 +1,13 @@
 **DISCLAIMER: The source code and tools provided in this repository are entirely for EDUCATIONAL PURPOSES ONLY and shall not be used in any illicit activity or intent. You are entirely responsible for the actions, damages etc. caused. The code and tools come with no warranty!**
 
 # 👻 blxr
-blxr is a Spyware capable of spying on a client computer. blxr can read and extract data from the client computer, log it and then send it over to a server or the attacker.
-This project is still in active development. Under here you can see which items are done, and which ones are WIP.
+blxr is a Windows spyware capable of logging keystrokes and taking screenshots while sending them to an attacker's server. The project is WIP so here you can see what is done and what is WIP / planned:
 
 ## Abilities
 ### Spying
 - [x] Keylogger
 - [x] Screenscraper
+- [ ] Communication with attacker
 
 ### Persistence
 - [x] Startup Auto-Boot
