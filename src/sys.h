@@ -8,6 +8,8 @@
 
 namespace Sys {
 int AddToRegistry();
+int RemoveFromRegistry();
+bool CheckForVirtualMachine();
 }
 
 #endif //BLXR_SRC_SYS_H_

