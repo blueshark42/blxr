@@ -5,7 +5,7 @@
 #define DEBUG_FUNCT // Debug functions
 
 #ifdef DEBUG_FUNCT
-#define DEBN(x) std::cout << "[" << #x << " - 0x" << x << "]" << std::endl;
+#define DEBN(x) std::cout << "[" << #x << " - " << x << "]" << std::endl;
 #define DEB(x) std::cout << x << std::endl;
 #endif // DEBUG_FUNCT
 

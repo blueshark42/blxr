@@ -2,6 +2,7 @@
 #define BLXR_SRC_SCREEN_H_
 
 #include <string>
+#include <sstream>
 
 #include <Windows.h>
 #include <gdiplus.h>

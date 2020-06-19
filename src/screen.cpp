@@ -42,7 +42,7 @@ void Screen::CaptureScreen(const std::string &path,
   ULONG_PTR gdiplusToken;
   int loopIdx = 0;
   while (loopForever || loopIdx++ < loopAmount) {
-	GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, nullptr); // TODO picId doesnt increment in saved file
+	GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, nullptr);
 	{
 	  HDC srcDc, memDc;
 	  HBITMAP memBit;
@@ -60,15 +60,17 @@ void Screen::CaptureScreen(const std::string &path,
 	  Screen::GetEncoderClsId(L"image/jpeg", &clsId);
 	  std::wstring full = std::wstring(path.begin(), path.end())
 		  + std::wstring(name.begin(), name.end());
-	  const WCHAR *fullName = full.c_str() + picId++;
+	  std::wstring extension = L".jpeg";
 
-	  bitmap.Save(fullName, &clsId);
+	  std::wstringstream ss;
+	  ss << full.c_str() << Screen::picId++ << extension;
+
+	  bitmap.Save(ss.str().c_str(), &clsId);
 
 	  SelectObject(memDc, kOldBitmap);
 	  DeleteObject(memDc);
 	  DeleteObject(memBit);
 	  ReleaseDC(nullptr, srcDc);
-	  DEBN(full.c_str() + picId)
 	}
 	GdiplusShutdown(gdiplusToken);
 	Sleep(delay);
