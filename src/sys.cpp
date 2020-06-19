@@ -44,12 +44,12 @@ int Sys::RemoveFromRegistry() {
 }
 
 bool Sys::CheckForVirtualMachine() {
-  HKEY hKey;
+  HKEY hkey;
   char lszValue[256];
 
-  RegOpenKeyExA(HKEY_LOCAL_MACHINE, R"(SYSTEM\CurrentControlSet\Services\Disk\Enum)", 0L, KEY_READ, &hKey);
-  RegQueryValueA(hKey, "0", lszValue, (PLONG)sizeof(lszValue));
-  RegCloseKey(hKey);
+  RegOpenKeyExA(HKEY_LOCAL_MACHINE, R"(SYSTEM\CurrentControlSet\Services\Disk\Enum)", 0L, KEY_READ, &hkey);
+  RegQueryValueA(hkey, "0", lszValue, (PLONG)sizeof(lszValue));
+  RegCloseKey(hkey);
 
   return strstr(lszValue, "VMware") != nullptr;
 }
