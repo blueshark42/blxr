@@ -53,9 +53,14 @@ bool Stream::MakeFile() {
   }
   return true;
 }
-bool Stream::GetAccountInfo() {
-  return false;
+OSVERSIONINFOEX Stream::GetAccountInfo() {
+  OSVERSIONINFOEX info;
+  ZeroMemory(&info, sizeof(OSVERSIONINFOEX));
+  info.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
+  GetVersionEx(reinterpret_cast<LPOSVERSIONINFOA>(&info));
+  return info;
 }
+
 bool Stream::GetAllFilesInFolder(const std::string &firstFile) {
   WIN32_FIND_DATA findData;
   HANDLE findFile = FindFirstFile(firstFile.c_str(), &findData);
