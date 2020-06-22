@@ -53,6 +53,7 @@ bool Stream::MakeFile() {
   }
   return true;
 }
+
 OSVERSIONINFOEX Stream::GetAccountInfo() {
   OSVERSIONINFOEX info;
   ZeroMemory(&info, sizeof(OSVERSIONINFOEX));
@@ -61,15 +62,10 @@ OSVERSIONINFOEX Stream::GetAccountInfo() {
   return info;
 }
 
-bool Stream::GetAllFilesInFolder(const std::string &firstFile) {
-  WIN32_FIND_DATA findData;
-  HANDLE findFile = FindFirstFile(firstFile.c_str(), &findData);
-  if (findFile == INVALID_HANDLE_VALUE) {
-	return false;
+std::vector<std::filesystem::path> Stream::GetAllFilesInFolder(const std::string &firstFile) {
+  std::vector<std::filesystem::path> entryList;
+  for (const auto &entry : std::filesystem::directory_iterator(firstFile)) {
+	entryList.push_back(entry.path());
   }
-  do {
-	std::cout << findData.cFileName << std::endl;
-  } while (FindNextFile(findFile, &findData));
-  FindClose(findFile);
-  return true;
+  return entryList;
 }

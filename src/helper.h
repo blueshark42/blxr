@@ -42,6 +42,7 @@ namespace Convert {
 template<typename T>
 std::string ToString(T &t);
 std::string HwndToString(HWND hwnd);
+std::string GetFinalFile(const std::string &input, char character);
 }
 
 namespace SystemData {

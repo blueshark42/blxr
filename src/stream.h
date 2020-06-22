@@ -1,6 +1,7 @@
 #ifndef BLXR__STREAM_H_
 #define BLXR__STREAM_H_
 
+#include <filesystem>
 #include <fstream>
 #include <sstream>
 #include <rpc.h>
@@ -27,7 +28,7 @@ bool MakeDir(const std::string &path);
 bool MakeFile();
 bool WriteLog(const std::string &input, uint32_t &active, bool blockProcessInfo = false);
 OSVERSIONINFOEX GetAccountInfo();
-bool GetAllFilesInFolder(const std::string &firstFile);
+std::vector<std::filesystem::path> GetAllFilesInFolder(const std::string &firstFile);
 
 static Stream::LogFile *logFile;
 }

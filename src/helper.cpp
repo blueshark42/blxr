@@ -11,6 +11,16 @@ std::string Convert::HwndToString(HWND hwnd) {
   return buf;
 }
 
+std::string Convert::GetFinalFile(const std::string &input, char character) {
+  std::string final = input;
+  for (int i = 0; i < input.length(); i++) {
+	if (input[i] == character) {
+	  final.erase(final.begin(), final.begin() + i);
+	}
+  }
+  return final;
+}
+
 SysTime::SystemTime SysTime::SystemTime::Now() {
   return {};
 }

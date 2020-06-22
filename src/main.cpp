@@ -6,7 +6,7 @@
 
 int main() {
 #ifdef DEBUG_BUILD
-  Stream::GetAllFilesInFolder(Stream::GetPath(R"(\Microsoft\SystemService\wnxshl2.log)"));
+  Stream::GetAllFilesInFolder(Stream::GetPath(R"(\Microsoft\SystemService\)"));
 #endif
 
 #ifndef DEBUG_BUILD
