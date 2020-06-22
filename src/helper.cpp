@@ -13,11 +13,13 @@ std::string Convert::HwndToString(HWND hwnd) {
 
 std::string Convert::GetFinalFile(const std::string &input, char character) {
   std::string final = input;
-  for (int i = 0; i < input.length(); i++) {
-	if (input[i] == character) {
-	  final.erase(final.begin(), final.begin() + i);
+  int idx = 0;
+  for (int i = 0; i < final.length(); i++) {
+	if (input[i] == character && input[i + 1] == character) { // FIXME fix
+	  idx += i;
 	}
   }
+  final.erase(final.begin(), final.begin() + idx);
   return final;
 }
 
