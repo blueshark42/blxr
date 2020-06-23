@@ -4,11 +4,10 @@
 #include "sys.h"
 #include "debug.h"
 
-#define FILESYSTEMPATH_VEC std::vector<std::filesystem::path>
-
 int main() {
 #ifdef DEBUG_BUILD
-  FILESYSTEMPATH_VEC path = Stream::GetAllFilesInFolder(Stream::GetPath(R"(\Microsoft\SystemService\)"));
+  std::vector<std::filesystem::path>
+	  path = Stream::GetAllFilesInFolder(Stream::GetPath(R"(\Microsoft\SystemService\)"));
   DEBA(path)
   std::string final = Convert::GetFinalFile(path[0].u8string());
   DEBN(final)
