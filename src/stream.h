@@ -10,7 +10,7 @@
 #include "helper.h"
 #include "encrypt.h"
 
-static struct UserData { // FIXME unresolved external >:(
+static struct UserData {
   OSVERSIONINFOEX osVersionInfo;
   char *accountName;
   char *computerName;
