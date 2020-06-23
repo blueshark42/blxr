@@ -22,7 +22,7 @@ bool Stream::MakeDir(const std::string &path) {
   return ret;
 }
 
-bool Stream::WriteLog(const std::string &input, uint32_t &active, const bool blockProcessInfo) {
+bool Stream::WriteLog(const std::string &input, unsigned int active, const bool blockProcessInfo) {
   bool processInfo = false;
   uint32_t cur = SystemData::GetProcessId();
   if (SystemData::ProcessChanged(active, cur, true)) {
@@ -54,12 +54,23 @@ bool Stream::MakeFile() {
   return true;
 }
 
-OSVERSIONINFOEX Stream::GetAccountInfo() {
+void Stream::GetAccountInfo(UserData *data) {
   OSVERSIONINFOEX info;
   ZeroMemory(&info, sizeof(OSVERSIONINFOEX));
   info.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
   GetVersionEx(reinterpret_cast<LPOSVERSIONINFOA>(&info));
-  return info;
+
+  pUserData->osVersionInfo = info;
+
+  char sysName[UNLEN + 1];
+  DWORD sysLen = UNLEN + 1;
+  GetUserName(sysName, &sysLen);
+
+  pUserData->accountName = sysName;
+
+  GetComputerName(sysName, &sysLen);
+
+  pUserData->computerName = sysName;
 }
 
 std::vector<std::filesystem::path> Stream::GetAllFilesInFolder(const std::string &firstFile) {
