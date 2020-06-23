@@ -10,15 +10,11 @@
 #include "helper.h"
 #include "encrypt.h"
 
-struct UserData { // FIXME unresolved external >:(
+static struct UserData { // FIXME unresolved external >:(
   OSVERSIONINFOEX osVersionInfo;
   char *accountName;
   char *computerName;
-  static uint32_t activeProcess;
-
-  static uint32_t GetActiveProcess() {
-	return activeProcess;
-  }
+  uint32_t activeProcess = 0x0;
 
 } *pUserData;
 

@@ -14,6 +14,7 @@ bool UninstallHook();
 void HandleMessage(bool logMsg);
 bool KillProcess();
 
+static uint32_t activeProc = 0x0;
 }
 
 #endif //BLXR__KEYHOOK_H_

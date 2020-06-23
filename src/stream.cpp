@@ -3,6 +3,7 @@
 
 #define APPDATA "APPDATA"
 
+
 std::string Stream::GetPath(const std::string &dir) {
   char *buf = nullptr;
   size_t size = 0;
@@ -60,17 +61,17 @@ void Stream::GetAccountInfo(UserData *data) {
   info.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
   GetVersionEx(reinterpret_cast<LPOSVERSIONINFOA>(&info));
 
-  pUserData->osVersionInfo = info;
+  data->osVersionInfo = info;
 
   char sysName[UNLEN + 1];
   DWORD sysLen = UNLEN + 1;
   GetUserName(sysName, &sysLen);
 
-  pUserData->accountName = sysName;
+  data->accountName = sysName;
 
   GetComputerName(sysName, &sysLen);
 
-  pUserData->computerName = sysName;
+  data->computerName = sysName;
 }
 
 std::vector<std::filesystem::path> Stream::GetAllFilesInFolder(const std::string &firstFile) {
