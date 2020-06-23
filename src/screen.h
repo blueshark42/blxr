@@ -15,7 +15,7 @@ int GetEncoderClsId(const WCHAR *format, CLSID *clsId);
 void CaptureScreen(const std::string &path,
 				   const std::string &name,
 				   bool loopForever = false,
-				   float delay = 0.0f,
+				   int delay = 0,
 				   int loopAmount = 0);
 }
 

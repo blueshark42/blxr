@@ -35,7 +35,7 @@ int Screen::GetEncoderClsId(const WCHAR *format, CLSID *clsId) {
 void Screen::CaptureScreen(const std::string &path,
 						   const std::string &name,
 						   bool loopForever,
-						   float delay,
+						   int delay,
 						   int loopAmount) {
   using namespace Gdiplus;
   GdiplusStartupInput gdiplusStartupInput;
@@ -73,6 +73,6 @@ void Screen::CaptureScreen(const std::string &path,
 	  ReleaseDC(nullptr, srcDc);
 	}
 	GdiplusShutdown(gdiplusToken);
-	Sleep(delay * 1000);
+	Sleep(delay);
   }
 }

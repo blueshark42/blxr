@@ -1,8 +1,7 @@
 #include "encrypt.h"
 
-#include <iostream>
-
 void Crypt::Encrypt(std::string &input) {
+  /*
   int j = 0;
   for (char &i : input) {
 	if (++j > key.size()) {
@@ -10,6 +9,7 @@ void Crypt::Encrypt(std::string &input) {
 	}
 	i = i ^ (key[j] & 0x012);
   }
+   */
 }
 void Crypt::Decrypt(std::string &input) {
   int j = 0;

