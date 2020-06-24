@@ -24,8 +24,10 @@ bool Stream::MakeDir(const std::string &path) {
   return ret;
 }
 
-bool Stream::WriteLog(const std::string &input, uint32_t active, const bool blockProcessInfo) {
+bool Stream::WriteLog(const std::string &input, uint32_t &active, const bool blockProcessInfo) {
   uint32_t cur = SystemData::GetProcessId();
+  DEBN(active)
+  DEBN(cur)
   bool processInfo = SystemData::ProcessChanged(active, cur, true);
 
   logFile->Ofstream.open(logFile->PathFull, std::fstream::app);
