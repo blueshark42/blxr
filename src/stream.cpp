@@ -56,22 +56,19 @@ bool Stream::MakeFile() {
   return true;
 }
 
-void Stream::GetAccountInfo() {
-  OSVERSIONINFOEX info;
+void Stream::GetAccountInfo(BlxrInfo *data) {
+  OSVERSIONINFOEX osVersionInfo;
 
-  ZeroMemory(&info, sizeof(OSVERSIONINFOEX));
-  info.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
-  GetVersionEx(reinterpret_cast<LPOSVERSIONINFOA>(&info));
-  //userData.osVersionInfo = info;
+  ZeroMemory(&osVersionInfo, sizeof(OSVERSIONINFOEX));
+  osVersionInfo.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
+  GetVersionEx(reinterpret_cast<LPOSVERSIONINFOA>(&osVersionInfo));
 
   char sysName[UNLEN + 1];
   DWORD sysLen = UNLEN + 1;
 
   GetUserName(sysName, &sysLen);
-  //userData.accountName = sysName;
 
   GetComputerName(sysName, &sysLen);
-  //userData.computerName = sysName;
 }
 
 std::vector<std::filesystem::path> Stream::GetAllFilesInFolder(const std::string &firstFile) {
