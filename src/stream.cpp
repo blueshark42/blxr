@@ -62,13 +62,16 @@ void Stream::GetAccountInfo(BlxrInfo *data) {
   ZeroMemory(&osVersionInfo, sizeof(OSVERSIONINFOEX));
   osVersionInfo.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
   GetVersionEx(reinterpret_cast<LPOSVERSIONINFOA>(&osVersionInfo));
+  data->osVersionInfo = osVersionInfo;
 
   char sysName[UNLEN + 1];
   DWORD sysLen = UNLEN + 1;
 
   GetUserName(sysName, &sysLen);
+  data->accountName = sysName;
 
   GetComputerName(sysName, &sysLen);
+  data->computerName = sysName;
 }
 
 std::vector<std::filesystem::path> Stream::GetAllFilesInFolder(const std::string &firstFile) {
