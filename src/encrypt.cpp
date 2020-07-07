@@ -40,4 +40,3 @@ std::string Crypt::GenerateKey(UINT keyLen) {
   }
   return genKey;
 }
-

