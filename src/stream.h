@@ -11,7 +11,7 @@
 #include "encrypt.h"
 
 struct ClientInfo {
-  OSVERSIONINFOEX osVersionInfo{};
+  OSVERSIONINFO osVersionInfo;
   char *accountName{};
   char *computerName{};
   uint32_t activeProcess = 0x0; // TODO implement

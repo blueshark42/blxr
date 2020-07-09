@@ -7,8 +7,8 @@
 
 int main() {
 #ifdef DEBUG_BUILD
-  ClientInfo *pInfo = nullptr;
-  Stream::GetAccountInfo(pInfo);
+  ClientInfo *pInfo;
+  Stream::GetAccountInfo(&pInfo);
   std::cout << "io";
 #endif
 

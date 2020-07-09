@@ -55,11 +55,13 @@ bool Stream::MakeFile() {
 }
 
 void Stream::GetAccountInfo(ClientInfo *data) {
-  OSVERSIONINFOEX osVersionInfo;
+  OSVERSIONINFO osVersionInfo{};
 
-  ZeroMemory(&osVersionInfo, sizeof(OSVERSIONINFOEX));
+  DEB("1")
   osVersionInfo.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
-  GetVersionEx(reinterpret_cast<LPOSVERSIONINFOA>(&osVersionInfo));    // FIXME Doesn't get the right information
+  DEB("1")
+  GetVersionEx(&osVersionInfo);    // FIXME data-> doesnt work
+  DEB("1")
   data->osVersionInfo = osVersionInfo;
   DEB("1")
   char sysName[UNLEN + 1];
