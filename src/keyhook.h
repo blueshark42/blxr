@@ -6,6 +6,7 @@
 #include <Windows.h>
 
 #include "keyconst.h"
+#include "stream.h"
 
 namespace KeyHook {
 LRESULT RunHook(int nCode, WPARAM wParam, LPARAM lParam);

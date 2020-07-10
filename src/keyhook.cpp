@@ -1,5 +1,4 @@
 #include "keyhook.h"
-#include "stream.h"
 
 HHOOK hook = nullptr;
 std::string keyLog;

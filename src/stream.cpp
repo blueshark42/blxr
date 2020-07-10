@@ -54,24 +54,24 @@ bool Stream::MakeFile() {
   return true;
 }
 
-void Stream::GetAccountInfo(ClientInfo *data) {
+void Stream::GetAccountInfo(ClientInfo &data) {
   OSVERSIONINFO osVersionInfo{};
 
   DEB("1")
   osVersionInfo.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
   DEB("1")
-  GetVersionEx(&osVersionInfo);    // FIXME data-> doesnt work
+  GetVersionEx(&osVersionInfo);
   DEB("1")
-  data->osVersionInfo = osVersionInfo;
+  data.osVersionInfo = osVersionInfo;
   DEB("1")
   char sysName[UNLEN + 1];
   DWORD sysLen = UNLEN + 1;
 
   GetUserName(sysName, &sysLen);
-  data->accountName = sysName;
+  data.accountName = sysName;
   DEB("1")
   GetComputerName(sysName, &sysLen);
-  data->computerName = sysName;
+  data.computerName = sysName;
   DEB("1")
 }
 
