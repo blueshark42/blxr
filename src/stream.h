@@ -11,13 +11,12 @@
 #include "encrypt.h"
 
 struct ClientInfo {
-  OSVERSIONINFO osVersionInfo;
+  OSVERSIONINFO osVersionInfo{};
   char *accountName{};
   char *computerName{};
-  uint32_t activeProcess = 0x0; // TODO implement
+  uint32_t activeProcess = 0x0;
 
-};
-
+} static clientInfo; // Ptr would be preferred
 
 namespace Stream {
 class LogFile {

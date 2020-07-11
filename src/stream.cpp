@@ -55,24 +55,14 @@ bool Stream::MakeFile() {
 }
 
 void Stream::GetAccountInfo(ClientInfo &data) {
-  OSVERSIONINFO osVersionInfo{};
+  data.osVersionInfo.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+  GetVersionEx(&data.osVersionInfo);
 
-  DEB("1")
-  osVersionInfo.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
-  DEB("1")
-  GetVersionEx(&osVersionInfo);
-  DEB("1")
-  data.osVersionInfo = osVersionInfo;
-  DEB("1")
   char sysName[UNLEN + 1];
   DWORD sysLen = UNLEN + 1;
 
-  GetUserName(sysName, &sysLen);
-  data.accountName = sysName;
-  DEB("1")
-  GetComputerName(sysName, &sysLen);
-  data.computerName = sysName;
-  DEB("1")
+  GetUserName(data.accountName, &sysLen);
+  GetComputerName(data.computerName, &sysLen);
 }
 
 std::vector<std::filesystem::path> Stream::GetAllFilesInFolder(const std::string &firstFile) {
