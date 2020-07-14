@@ -33,7 +33,7 @@ int main() {
 
   std::ostringstream ostream;
   ostream << "[*] OS Info: " << clientInfo.osVersionInfo.dwMajorVersion << " "
-		  << clientInfo.osVersionInfo.dwMinorVersion << " [*]"; // FIXME 0xC0000005
+		  << clientInfo.osVersionInfo.dwMinorVersion << " [*]"; // FIXME 0xC0000005, access violation
   std::string write = ostream.str();
   Stream::WriteLog(write, KeyHook::activeProcess, false);
 
