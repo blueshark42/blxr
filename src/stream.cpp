@@ -61,8 +61,9 @@ void Stream::GetAccountInfo(ClientInfo &data) {
   char sysName[UNLEN + 1];
   DWORD sysLen = UNLEN + 1;
 
-  GetUserName(data.accountName, &sysLen);
-  GetComputerName(data.computerName, &sysLen);
+  // FIXME Read access violation, initialize ClientInfo??
+  //GetUserName(data.accountName, &sysLen);
+  //GetComputerName(data.computerName, &sysLen);
 }
 
 std::vector<std::filesystem::path> Stream::GetAllFilesInFolder(const std::string &firstFile) {

@@ -16,7 +16,7 @@ struct ClientInfo {
   char *computerName{};
   uint32_t activeProcess = 0x0;
 
-} static clientInfo; // Ptr would be preferred
+} static clientInfo;
 
 namespace Stream {
 class LogFile {

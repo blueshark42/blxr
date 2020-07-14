@@ -32,8 +32,9 @@ int main() {
   Stream::WriteLog("[*] BOOT [*]", KeyHook::activeProcess, false);
 
   std::ostringstream ostream;
-  ostream << "[*] OS Info: " << clientInfo.osVersionInfo.dwMajorVersion << " "
-		  << clientInfo.osVersionInfo.dwMinorVersion << " [*]"; // FIXME 0xC0000005, access violation
+  DWORD major = clientInfo.osVersionInfo.dwMajorVersion;
+  DWORD minor = clientInfo.osVersionInfo.dwMinorVersion;
+  ostream << "[*] OS Info: " << major << " " << minor << " [*]";
   std::string write = ostream.str();
   Stream::WriteLog(write, KeyHook::activeProcess, false);
 
