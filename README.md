@@ -25,5 +25,4 @@ blxr is a Windows spyware capable of logging keystrokes, taking screenshots and 
 - Hooks itself to intercept low-level keyboard events
 - Creates an encryption key, encrypts the logs file with the key
 - Creates registry keys, sets registry values to start on boot
-- In certain intevals / commands the process sends over the data to the attacker (WIP)
 - Logs and spies on the user until terminated by a kill switch (WIP)
