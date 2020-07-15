@@ -12,11 +12,11 @@
 
 struct ClientInfo {
   OSVERSIONINFO osVersionInfo{};
-  char *accountName{};
-  char *computerName{};
+  char accountName[UNLEN + 1];
+  char *computerName[UNLEN + 1];
   uint32_t activeProcess = 0x0;
 
-} static clientInfo;
+} static clientInfo, *pClientInfo;
 
 namespace Stream {
 class LogFile {
@@ -36,7 +36,7 @@ std::string GetPath(const std::string &dir = "");
 bool MakeDir(const std::string &path);
 bool MakeFile();
 bool WriteLog(const std::string &input, uint32_t &active, bool blockProcessInfo = false);
-void GetAccountInfo(ClientInfo &data);
+void GetAccountInfo(ClientInfo *data);
 std::vector<std::filesystem::path> GetAllFilesInFolder(const std::string &firstFile);
 
 static Stream::LogFile *logFile;

