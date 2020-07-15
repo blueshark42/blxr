@@ -12,8 +12,8 @@
 
 struct ClientInfo {
   OSVERSIONINFO osVersionInfo{};
-  char accountName[UNLEN + 1];
-  char *computerName[UNLEN + 1];
+  char accountName[UNLEN + 1]{};
+  char computerName[UNLEN + 1]{};
   uint32_t activeProcess = 0x0;
 
 } static clientInfo, *pClientInfo;

