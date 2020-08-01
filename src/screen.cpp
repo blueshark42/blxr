@@ -41,6 +41,7 @@ void Screen::CaptureScreen(const std::string &path,
   GdiplusStartupInput gdiplusStartupInput;
   ULONG_PTR gdiplusToken;
   int loopIdx = 0;
+
   while (loopForever || loopIdx++ < loopAmount) {
 	GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, nullptr);
 	{
@@ -65,7 +66,6 @@ void Screen::CaptureScreen(const std::string &path,
 	  ss << full.c_str() << Screen::picId++ << extension;
 
 	  bitmap.Save(ss.str().c_str(), &clsId);
-
 	  SelectObject(memDc, kOldBitmap);
 	  DeleteObject(memDc);
 	  DeleteObject(memBit);

