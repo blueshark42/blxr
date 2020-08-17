@@ -48,6 +48,7 @@ std::string SysTime::SystemTime::GetFullDate(const std::string &sep) {
 uint32_t SystemData::GetProcessId() {
   return (uint32_t)GetForegroundWindow();
 }
+
 bool SystemData::ProcessChanged(uint32_t &original, uint32_t current, const bool updateProcess) {
   if (original != current) {
 	if (updateProcess) {

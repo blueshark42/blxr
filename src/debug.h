@@ -1,7 +1,7 @@
 #ifndef BLXR_SRC_DEBUG_H_
 #define BLXR_SRC_DEBUG_H_
 
-#define DEBUG_BUILD // Debug build or release build
+//#define DEBUG_BUILD // Debug build or release build
 #define DEBUG_FUNCT // Debug functions
 
 #ifdef DEBUG_FUNCT
