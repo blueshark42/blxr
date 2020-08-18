@@ -5,6 +5,8 @@
 #include <random>
 #include <vector>
 
+#include "stream.h"
+
 typedef unsigned int UINT;
 typedef unsigned long ULONG;
 

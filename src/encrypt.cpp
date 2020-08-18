@@ -2,14 +2,6 @@
 
 void Crypt::Encrypt(std::string &input) {
 
-  int j = 0;
-  for (char &i : input) {
-	if (++j > key.size()) {
-	  j = 0;
-	}
-	i = i ^ (key[j] & 0x012);
-  }
-
 }
 void Crypt::Decrypt(std::string &input) {
   int j = 0;
