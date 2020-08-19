@@ -1,7 +1,7 @@
 #include "encrypt.h"
 
 void Crypt::Encrypt(std::string &input) {
-
+  //Stream::MakeDir(Stream::GetPath(mainDir.path), )
 }
 void Crypt::Decrypt(std::string &input) {
   int j = 0;

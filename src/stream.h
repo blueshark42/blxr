@@ -21,7 +21,7 @@ struct ClientInfo {
 struct BDirectory {
   std::string path;
   std::string name;
-};
+} static mainDir, encrDir;
 
 namespace Stream {
 class LogFile {
@@ -38,7 +38,7 @@ class LogFile {
 };
 
 std::string GetPath(const std::string &dir = "");
-bool MakeDir(const std::string &path, const std::string &name, const std::string *outPathFull = nullptr);
+bool MakeDir(const std::string &path, const std::string &name, DWORD fileAttribute = FILE_ATTRIBUTE_NORMAL);
 bool MakeFile(const std::string &fileName, const std::string &path);
 bool WriteLog(const std::string &input, uint32_t &active, bool blockProcessInfo = false);
 void GetAccountInfo(ClientInfo *data);
