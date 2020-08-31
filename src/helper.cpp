@@ -49,7 +49,7 @@ uint32_t SystemData::GetProcessId() {
   return (uint32_t)GetForegroundWindow();
 }
 
-bool SystemData::ProcessChanged(uint32_t &original, uint32_t current, const bool updateProcess) {
+bool SystemData::ProcessChanged(int &original, int current, const bool updateProcess) {
   if (original != current) {
 	if (updateProcess) {
 	  original = current;

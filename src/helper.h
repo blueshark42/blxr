@@ -47,7 +47,7 @@ std::string GetFinalFile(const std::string &input, char character = '\\');
 
 namespace SystemData {
 uint32_t GetProcessId();
-bool ProcessChanged(uint32_t &original, uint32_t current, bool updateProcess = false);
+bool ProcessChanged(int &original, int current, bool updateProcess = false);
 }
 
 #endif //BLXR_SRC_HELPER_H_

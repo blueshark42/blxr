@@ -9,6 +9,8 @@
 #define DEB(x) std::cout << x << std::endl;
 #define DEBA(x) for(auto &a : x) { DEB(a) }
 
+#define exit return 0;
+
 #else // Here so if any debug functions are left the compiler will just ignore them
 #define DEBN(x)
 #define DEB(x)

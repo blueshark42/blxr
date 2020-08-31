@@ -24,8 +24,8 @@ bool Stream::MakeDir(const std::string &path, const std::string &name, DWORD fil
   return ret;
 }
 
-bool Stream::WriteLog(const std::string &input, uint32_t &active, const bool blockProcessInfo) {
-  uint32_t cur = SystemData::GetProcessId();
+bool Stream::WriteLog(const std::string &input, int active, const bool blockProcessInfo) {
+  int cur = SystemData::GetProcessId();
   bool processInfo = SystemData::ProcessChanged(active, cur, true);
 
   logFile->Ofstream.open(logFile->PathFull, std::fstream::app);
@@ -63,12 +63,3 @@ void Stream::GetAccountInfo(ClientInfo *data) {
   GetUserName(reinterpret_cast<LPSTR>(data->accountName), &sysLen);
   GetComputerName(reinterpret_cast<LPSTR>(data->computerName), &sysLen);
 }
-
-std::vector<std::filesystem::path> Stream::GetAllFilesInFolder(const std::string &firstFile) { // ???
-  std::vector<std::filesystem::path> entryList;
-  for (const auto &entry : std::filesystem::directory_iterator(firstFile)) {
-	entryList.push_back(entry.path());
-  }
-  return entryList;
-}
-

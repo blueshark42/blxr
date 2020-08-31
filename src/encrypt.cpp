@@ -1,7 +1,13 @@
 #include "encrypt.h"
 
+
 void Crypt::Encrypt(std::string &input) {
-  //Stream::MakeDir(Stream::GetPath(mainDir.path), )
+  std::ostringstream ostream;
+  ostream << key;
+  Stream::WriteLog(ostream.str(), 0x0, false);
+
+  // TODO Encryption algorithm like whaaaaaaa
+
 }
 void Crypt::Decrypt(std::string &input) {
   int j = 0;
